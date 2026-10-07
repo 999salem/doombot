@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#030705">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>DOOMBOT // 999SALEM</title>
+<style>
+:root{
+  --bg:#030705;--panel:#07120b;--panel2:#0b1b11;--line:#234d2e;
+  --green:#72ff86;--green2:#b7ffc0;--gold:#d8bd68;--text:#eef5ef;
+  --muted:#8ca194;--red:#ff6262;--shadow:0 20px 70px rgba(0,0,0,.42);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:
+ radial-gradient(circle at 80% 0%,rgba(67,22,91,.22),transparent 34rem),
+ radial-gradient(circle at 10% 30%,rgba(22,88,38,.15),transparent 32rem),
+ var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ min-height:100vh;overflow-x:hidden}
+button,input{font:inherit}
+a{color:inherit}
+.app{width:min(1180px,100%);margin:auto;padding:0 18px 130px}
+.top-safe{height:max(18px,env(safe-area-inset-top))}
+.header{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 0 16px;border-bottom:1px solid rgba(114,255,134,.16)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-mark{width:34px;height:42px;clip-path:polygon(24% 0,100% 12%,82% 88%,20% 100%,0 40%);background:linear-gradient(145deg,#d8ded9,#26322b 65%,#101511);box-shadow:0 0 0 1px rgba(255,255,255,.1)}
+.brand b{display:block;letter-spacing:.24em;font-size:18px}
+.brand small{display:block;margin-top:4px;color:var(--gold);font:700 9px/1 monospace;letter-spacing:.2em}
+.online{border:1px solid rgba(114,255,134,.45);color:var(--green);padding:10px 13px;border-radius:999px;font:700 10px monospace;letter-spacing:.08em;white-space:nowrap}
+.nav{display:flex;gap:8px;padding:13px 0;position:sticky;top:0;z-index:20;background:rgba(3,7,5,.9);backdrop-filter:blur(14px)}
+.nav button{border:1px solid transparent;background:transparent;color:#8c9a90;padding:11px 14px;border-radius:999px;font:800 11px monospace;letter-spacing:.12em;cursor:pointer}
+.nav button.active,.nav button:hover{border-color:rgba(114,255,134,.3);background:#0c2013;color:var(--green)}
+.view{display:none}.view.active{display:block}
+.hero{position:relative;min-height:690px;margin-top:12px;border:1px solid rgba(114,255,134,.2);border-radius:30px;overflow:hidden;background:#020604;box-shadow:var(--shadow)}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,6,4,.98) 0%,rgba(2,6,4,.78) 34%,rgba(2,6,4,.18) 72%,rgba(2,6,4,.62) 100%),linear-gradient(0deg,rgba(2,6,4,.94) 0%,transparent 55%);z-index:1}
+.doom-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 18%;filter:saturate(.8) contrast(1.08) brightness(.82);transform:scale(1.02)}
+.hero-content{position:relative;z-index:2;min-height:690px;padding:clamp(34px,6vw,80px);display:flex;flex-direction:column;justify-content:flex-end}
+.eyebrow{color:var(--gold);font:800 11px monospace;letter-spacing:.22em;text-transform:uppercase}
+.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(58px,11vw,150px);line-height:.8;margin:14px 0 16px;letter-spacing:-.055em;max-width:800px}
+.hero h1 span{display:block}
+.hero-copy{max-width:610px;color:#b4c2b7;font-size:clamp(15px,2vw,19px);line-height:1.65;margin:0}
+.countdown{margin-top:28px;display:grid;grid-template-columns:repeat(4,minmax(70px,1fr));gap:8px;max-width:600px}
+.timebox{background:rgba(3,10,6,.78);border:1px solid rgba(114,255,134,.28);border-radius:16px;padding:14px 12px;text-align:center;backdrop-filter:blur(12px)}
+.timebox b{display:block;font:800 clamp(25px,4vw,42px)/1 monospace;color:var(--green)}
+.timebox span{display:block;margin-top:7px;color:#718176;font:700 9px monospace;letter-spacing:.15em}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{border:1px solid rgba(114,255,134,.35);background:#0b1b11;color:var(--green);padding:13px 17px;border-radius:12px;text-decoration:none;font:800 11px monospace;letter-spacing:.1em;cursor:pointer}
+.btn.primary{background:var(--green);color:#031007;border-color:var(--green)}
+.btn:hover{transform:translateY(-1px)}
+.section{margin-top:22px;padding:clamp(22px,4vw,38px);border:1px solid rgba(114,255,134,.18);border-radius:24px;background:rgba(5,14,8,.78)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:22px}
+.section h2{font-family:Georgia,serif;font-size:clamp(35px,6vw,65px);line-height:.95;margin:5px 0}
+.section p{color:var(--muted);line-height:1.65}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{padding:17px;border:1px solid rgba(114,255,134,.15);border-radius:16px;background:#07130b}
+.stat b{font:800 25px monospace;color:var(--green)}
+.stat span{display:block;margin-top:6px;color:#75857a;font:700 9px monospace;letter-spacing:.13em}
+.theory-list{display:grid;gap:14px}
+.theory-card{border:1px solid rgba(114,255,134,.2);border-radius:20px;background:linear-gradient(145deg,#09170d,#050c07);padding:24px}
+.theory-top{display:flex;justify-content:space-between;gap:14px;align-items:start}
+.pill{display:inline-flex;border:1px solid rgba(114,255,134,.32);color:var(--green);border-radius:999px;padding:7px 10px;font:800 9px monospace;letter-spacing:.12em}
+.conf{font:900 25px monospace;color:var(--green)}
+.theory-card h3{font-size:clamp(22px,4vw,34px);margin:16px 0 9px;line-height:1.08}
+.theory-card p{margin:0;max-width:850px}
+.theory-footer{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-top:20px;padding-top:17px;border-top:1px solid rgba(114,255,134,.13);color:#77867c;font:700 10px monospace}
+.search{width:100%;border:1px solid rgba(114,255,134,.22);background:#061009;color:var(--text);border-radius:15px;padding:16px 17px;outline:none;margin-bottom:12px}
+.search:focus{border-color:rgba(114,255,134,.65)}
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:14px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter{flex:0 0 auto;border:1px solid rgba(114,255,134,.18);background:#07120b;color:#829188;border-radius:999px;padding:10px 13px;font:800 9px monospace;letter-spacing:.1em;cursor:pointer}
+.filter.active{color:var(--green);border-color:rgba(114,255,134,.55);background:#0c2113}
+.db-list{display:grid;gap:9px}
+.db-row{width:100%;display:grid;grid-template-columns:130px minmax(0,1fr) 120px;gap:16px;align-items:center;text-align:left;border:1px solid rgba(114,255,134,.13);background:#07120b;color:var(--text);border-radius:15px;padding:17px;cursor:pointer}
+.db-row:hover{border-color:rgba(114,255,134,.48);background:#0a1b10}
+.db-type,.earth{font:800 9px monospace;color:var(--gold);letter-spacing:.1em}
+.db-row h3{margin:0 0 5px;font-size:16px}
+.db-row p{margin:0;color:#839187;font-size:13px;line-height:1.45}
+.db-open{text-align:right;color:var(--green);font:800 10px monospace}
+.record{display:none}
+.record.active{display:block}
+.record-grid{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:20px}
+.record h2{font-family:Georgia,serif;font-size:clamp(40px,7vw,80px);line-height:.9;margin:10px 0 18px}
+.record-aside{border:1px solid rgba(114,255,134,.18);border-radius:18px;padding:20px;background:#07120b}
+.record-aside b{display:block;color:var(--green);font:800 30px monospace}
+.record-aside span{font:700 9px monospace;color:#7b897f;letter-spacing:.1em}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.menu-item{padding:22px;border:1px solid rgba(114,255,134,.17);border-radius:18px;background:#07120b}
+.menu-item h3{margin:0 0 8px}
+.menu-item p{margin:0;font-size:14px}
+.footer{padding:28px 0;color:#66756b;font:700 9px monospace;letter-spacing:.08em;display:flex;justify-content:space-between;gap:15px}
+.bottom{display:none}
+.source-note{margin-top:16px;color:#65736a;font-size:11px;line-height:1.5}
+@media(max-width:760px){
+  .app{padding:0 12px calc(105px + env(safe-area-inset-bottom))}
+  .top-safe{height:max(12px,env(safe-area-inset-top))}
+  .header{padding:12px 2px}
+  .brand b{font-size:15px}.brand small{font-size:7px}.online{font-size:8px;padding:9px 10px}
+  .nav{display:none}
+  .hero{min-height:720px;margin-top:8px;border-radius:24px}
+  .hero-content{min-height:720px;padding:28px 20px 30px}
+  .hero h1{font-size:clamp(55px,18vw,100px);line-height:.78;margin-top:12px}
+  .hero-copy{font-size:14px;line-height:1.55}
+  .countdown{gap:6px;margin-top:18px}
+  .timebox{padding:11px 6px;border-radius:12px}
+  .timebox b{font-size:22px}.timebox span{font-size:7px}
+  .section{padding:20px 16px;border-radius:20px;margin-top:16px}
+  .section-head{display:block;margin-bottom:17px}
+  .section h2{font-size:42px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .theory-card{padding:18px;border-radius:17px}
+  .theory-top{align-items:center}
+  .theory-card h3{font-size:22px;margin-top:13px}
+  .theory-card p{font-size:14px}
+  .theory-footer{align-items:flex-start;flex-direction:column}
+  .db-row{grid-template-columns:1fr;gap:9px;padding:16px}
+  .db-open{text-align:left}
+  .record-grid{grid-template-columns:1fr}
+  .record-aside{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .menu-grid{grid-template-columns:1fr}
+  .footer{padding-bottom:10px}
+  .bottom{position:fixed;display:grid;grid-template-columns:repeat(4,1fr);left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));z-index:50;border:1px solid rgba(114,255,134,.22);background:rgba(4,12,7,.94);backdrop-filter:blur(18px);border-radius:18px;padding:5px;box-shadow:0 15px 45px rgba(0,0,0,.5)}
+  .bottom button{border:0;background:transparent;color:#718077;padding:13px 3px;border-radius:13px;font:800 8px monospace;letter-spacing:.06em}
+  .bottom button.active{background:#0d2415;color:var(--green)}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top-safe"></div>
+<header class="header">
+  <button class="brand" data-go="home" style="background:none;border:0;color:inherit;cursor:pointer;text-align:left">
+    <span class="brand-mark"></span><span><b>DOOMBOT</b><small>THEORY ARCHIVE // 999SALEM</small></span>
+  </button>
+  <div class="online">● SYSTEM ONLINE</div>
+</header>
+
+<nav class="nav" aria-label="Primary">
+  <button data-go="home">HOME</button>
+  <button data-go="theories">THEORIES</button>
+  <button data-go="database">DATABASE</button>
+  <button data-go="menu">MENU</button>
+</nav>
+
+<main>
+<section class="view active" id="home">
+  <div class="hero">
+    <img class="doom-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Doctor_Doom.jpg/960px-Doctor_Doom.jpg" alt="Doctor Doom character figure">
+    <div class="hero-content">
+      <div class="eyebrow">DOOMSDAY COMMAND CENTER // 999SALEM</div>
+      <h1><span>DOCTOR</span><span>DOOM</span></h1>
+      <p class="hero-copy">A personal Marvel database, theory archive and countdown built around Doom, the multiverse, Incursions and the road to Avengers: Doomsday.</p>
+      <div class="countdown">
+        <div class="timebox"><b id="days">--</b><span>DAYS</span></div>
+        <div class="timebox"><b id="hours">--</b><span>HOURS</span></div>
+        <div class="timebox"><b id="mins">--</b><span>MINUTES</span></div>
+        <div class="timebox"><b id="secs">--</b><span>SECONDS</span></div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn primary" data-go="theories">ENTER THEORY ARCHIVE</button>
+        <button class="btn" data-go="database">OPEN MARVEL DATABASE</button>
+      </div>
+      <div class="source-note">Homepage character image: William Tung, CC BY-SA 2.0 via Wikimedia Commons. Marvel reference: official Doctor Doom character page.</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-head"><div><div class="eyebrow">CURRENT SYSTEM</div><h2>DOOM FILES</h2></div></div>
+    <div class="stats">
+      <div class="stat"><b>09</b><span>THEORY FILES</span></div>
+      <div class="stat"><b id="dbCount">30</b><span>DATABASE RECORDS</span></div>
+      <div class="stat"><b>616+</b><span>EARTH / REALITY FOCUS</span></div>
+      <div class="stat"><b>12.17.26</b><span>DOOMSDAY TARGET</span></div>
+    </div>
+  </section>
+</section>
+
+<section class="view" id="theories">
+  <section class="section">
+    <div class="section-head"><div><div class="eyebrow">999SALEM // PREDICTION FILES</div><h2>THEORY ARCHIVE</h2><p>Existing files only. No new theories were added.</p></div></div>
+    <div class="filters">
+      <button class="filter active" data-theory-filter="all">ALL FILES</button>
+      <button class="filter" data-theory-filter="original">ORIGINALS</button>
+      <button class="filter" data-theory-filter="remix">REMIXES</button>
+    </div>
+    <input class="search" id="theorySearch" placeholder="Search Stark, Loki, Battleworld, Franklin...">
+    <div class="theory-list" id="theoryList"></div>
+  </section>
+</section>
+
+<section class="view" id="database">
+  <section class="section" id="dbBrowse">
+    <div class="section-head"><div><div class="eyebrow">MARVEL REFERENCE // DOOM RELEVANCE</div><h2>DATABASE</h2><p>Characters, variants, Earths, events, comics, locations, objects and powers connected to Doom.</p></div></div>
+    <div class="filters">
+      <button class="filter active" data-db-filter="all">ALL</button>
+      <button class="filter" data-db-filter="CHARACTER">CHARACTERS</button>
+      <button class="filter" data-db-filter="EARTH">EARTHS</button>
+      <button class="filter" data-db-filter="EVENT">EVENTS</button>
+      <button class="filter" data-db-filter="COMICS">COMICS</button>
+      <button class="filter" data-db-filter="POWER">POWERS</button>
+    </div>
+    <input class="search" id="dbSearch" placeholder="Search Doom, Earth-616, Incursions, Battleworld...">
+    <div class="db-list" id="dbList"></div>
+  </section>
+
+  <section class="section record" id="record">
+    <button class="btn" id="backDb">← DATABASE</button>
+    <div id="recordBody" style="margin-top:22px"></div>
+  </section>
+</section>
+
+<section class="view" id="menu">
+  <section class="section">
+    <div class="eyebrow">DOOMBOT // CONTROL</div>
+    <h2>MENU</h2>
+    <div class="menu-grid">
+      <div class="menu-item"><h3>THEORY ARCHIVE</h3><p>Review the nine existing 999SALEM prediction files and their manually assigned confidence.</p></div>
+      <div class="menu-item"><h3>MARVEL DATABASE</h3><p>Search Doom-relevant characters, variants, Earths, events, comics, powers and locations.</p></div>
+      <div class="menu-item"><h3>EARTHS</h3><p>Multiverse realities are first-class records because Incursions are central to the theory model.</p></div>
+      <div class="menu-item"><h3>NO SOCIAL LAYER</h3><p>No posts, community feed, Supabase, leaks board or unnecessary account system.</p></div>
+    </div>
+  </section>
+</section>
+</main>
+
+<footer class="footer"><span>DOOMBOT // 999SALEM</span><span>MARVEL REFERENCE + PERSONAL THEORY ARCHIVE</span></footer>
+</div>
+
+<div class="bottom">
+  <button data-go="home">HOME</button>
+  <button data-go="theories">THEORIES</button>
+  <button data-go="database">DATABASE</button>
+  <button data-go="menu">MENU</button>
+</div>
+
+<script>
+const THEORIES = [{"id":"rdj-stark","title":"RDJ Doom is cover for Tony Stark returning","type":"ORIGINAL THEORY","tag":"IDENTITY","confidence":76,"summary":"My biggest theory: announcing RDJ as Doom is the perfect smokescreen. Marvel can bring RDJ back as Tony Stark in Secret Wars without every trade instantly exposing the surprise, because everyone already expects RDJ to be on set."},{"id":"battleworld","title":"Doomsday ends with Battleworld","type":"ORIGINAL THEORY","tag":"ENDING","confidence":85,"summary":"I think Doomsday ends as a loss. The surviving pieces of reality get forced together and the final reveal is not a repaired multiverse — it is Doom's new world. Secret Wars starts after the nightmare has already won."},{"id":"incursions","title":"Incursions are the actual backbone of the movie","type":"ORIGINAL THEORY","tag":"STRUCTURE","confidence":89,"summary":"Even if Marvel heavily remixes Hickman, I still think the movie is built around realities colliding, heroes choosing their own Earth, and Doom being the only person willing to make the horrible decision nobody else will."},{"id":"avx","title":"The giant “team-up” scene is actually heroes fighting heroes","type":"THEORY REMIX","tag":"AVENGERS vs X-MEN","confidence":84,"summary":"My version: the emotional equivalent of Endgame's portals scene happens when multiple teams finally meet — except nobody is united. The Avengers and legacy X-Men are trying to save different universes, so the crossover everybody wanted begins as a war."},{"id":"doom-savior","title":"Doom is right about the problem — and monstrous about the solution","type":"THEORY REMIX","tag":"MORAL FLIP","confidence":78,"summary":"I don't think Doomsday needs Doom to be lying about everything. He may genuinely understand that the multiverse is dying before the heroes do. The twist is that his solution works: sacrifice worlds, take control, build one survivable reality, and make himself its god."},{"id":"loki","title":"Doom needs Loki because Loki is literally holding the multiverse together","type":"THEORY REMIX","tag":"POWER SOURCE","confidence":71,"summary":"My version of the Loki theory: Doom does not just want to beat Loki. He needs access to whatever Loki is doing at the end of time — either to redirect dying timelines, steal that power, or use Loki as the map that tells him which realities can still be saved."},{"id":"franklin","title":"Franklin Richards is the missing “battery” that makes Battleworld possible","type":"THEORY REMIX","tag":"FANTASTIC FOUR","confidence":77,"summary":"My version: Doom can understand the Incursions and still lack the raw ability to rebuild reality. Franklin is the missing piece. Doom either steals, borrows or manipulates Franklin's reality-warping power to turn collapsing universes into Battleworld."},{"id":"face","title":"Doom looking like Tony is a weapon even if he is NOT a Tony variant","type":"THEORY REMIX","tag":"IDENTITY","confidence":73,"summary":"I think Marvel can have it both ways. Victor can genuinely be Victor, but his face still destroys the Avengers emotionally. Doom walking into a room looking like the man who saved their universe gives him an instant psychological advantage over people like Thor and Peter."},{"id":"god-emperor","title":"The last image of Doomsday is God Emperor Doom already on the throne","type":"THEORY REMIX","tag":"ENDGAME","confidence":86,"summary":"My prediction: Marvel does not save the transformation for halfway through Secret Wars. Doomsday ends with Doom having “saved” existence, the survivors waking up in a new reality, and one final pullback revealing who owns it."}];
+const DB = [{"id":"doom","type":"CHARACTER","name":"Doctor Doom","earth":"EARTH-616","relevance":"ANCHOR","summary":"Victor von Doom: Latverian ruler, scientific genius, armored warlord and sorcerer. The central Doom record.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"doom-2099","type":"CHARACTER / VARIANT","name":"Doom 2099","earth":"EARTH-928","relevance":"HIGH","summary":"A future Doom identity tied to the 2099 setting; a key variant for tracking Doom across realities.","source":"https://www.marvel.com/comics/characters/1009281"},{"id":"god-emperor","type":"VARIANT / STATE","name":"God Emperor Doom","earth":"BATTLEWORLD","relevance":"CORE","summary":"Doom's Secret Wars-era godlike state after seizing overwhelming cosmic power and rebuilding reality in his own image.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"iron-doom","type":"VARIANT / STATE","name":"Iron Doom","earth":"EARTH-616","relevance":"HIGH","summary":"Victor's hero-leaning phase following Tony Stark's death, relevant to Doom/Tony identity parallels.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"sorcerer-doom","type":"VARIANT / STATE","name":"Sorcerer Supreme Doom","earth":"EARTH-616","relevance":"HIGH","summary":"Doom's magical elevation tied to the mantle of Sorcerer Supreme and later One World Under Doom material.","source":"https://www.marvel.com/comics/guides/2493/one-world-under-doom"},{"id":"loki","type":"CHARACTER","name":"Loki","earth":"EARTH-616","relevance":"HIGH","summary":"Multiversal power node for DOOMBOT analysis because the user's Loki theory centers on the end-of-time structure.","source":"https://www.marvel.com/characters/loki"},{"id":"franklin","type":"CHARACTER","name":"Franklin Richards","earth":"EARTH-616","relevance":"HIGH","summary":"Fantastic Four family member with major reality-manipulation relevance to Battleworld-style reconstruction stories.","source":"https://www.marvel.com/characters/franklin-richards"},{"id":"reed","type":"CHARACTER","name":"Reed Richards / Mister Fantastic","earth":"EARTH-616","relevance":"CORE","summary":"Doom's defining intellectual rival and a central Fantastic Four connection.","source":"https://www.marvel.com/characters/mister-fantastic-reed-richards"},{"id":"tony","type":"CHARACTER","name":"Tony Stark / Iron Man","earth":"EARTH-616","relevance":"HIGH","summary":"Essential identity-comparison record for RDJ, Iron Doom and the user's Tony-return theories.","source":"https://www.marvel.com/characters/iron-man-tony-stark"},{"id":"earth-616","type":"EARTH","name":"Earth-616","earth":"EARTH-616","relevance":"CORE","summary":"Primary Marvel Universe designation used as the baseline for cross-reality comparison.","source":"https://www.marvel.com"},{"id":"earth-928","type":"EARTH","name":"Earth-928","earth":"EARTH-928","relevance":"MEDIUM","summary":"2099-era reality associated with Doom 2099 and future Marvel history.","source":"https://www.marvel.com/comics/characters/1009281"},{"id":"battleworld-earth","type":"REALITY","name":"Battleworld","earth":"BATTLEWORLD","relevance":"CORE","summary":"Doom-constructed patchwork reality and the key Secret Wars destination tracked by DOOMBOT.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"incursions","type":"EVENT / MECHANISM","name":"Incursions","earth":"MULTIVERSE","relevance":"CORE","summary":"Reality-collision mechanism central to the user's movie-structure theory and Marvel's multiverse storytelling.","source":"https://www.marvel.com"},{"id":"secret-wars-1984","type":"EVENT / COMICS","name":"Secret Wars (1984)","earth":"MULTIVERSE","relevance":"CORE","summary":"Foundational Doom/Beyonder story in which Doom takes extraordinary cosmic power.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"secret-wars-2015","type":"EVENT / COMICS","name":"Secret Wars (2015)","earth":"MULTIVERSE","relevance":"CORE","summary":"The major modern Battleworld/Doom reference: Doom saves the collapsing multiverse and rebuilds reality in his own image.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"one-world-under-doom","type":"EVENT / COMICS","name":"One World Under Doom","earth":"EARTH-616","relevance":"HIGH","summary":"Doom takes the Sorcerer Supreme mantle and attempts to unite the world under his rule.","source":"https://www.marvel.com/comics/guides/2493/one-world-under-doom"},{"id":"doomwar","type":"EVENT / COMICS","name":"Doomwar","earth":"EARTH-616","relevance":"MEDIUM","summary":"A major Doom conflict involving Wakanda and vibranium.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"childrens-crusade","type":"EVENT / COMICS","name":"Avengers: The Children's Crusade","earth":"EARTH-616","relevance":"HIGH","summary":"Doom reaches a godlike state through Scarlet Witch's powers in this major Doom story.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"doomquest","type":"COMICS / EVENT","name":"Doomquest","earth":"EARTH-616","relevance":"HIGH","summary":"A signature Doom/Iron Man time-travel conflict, useful for tracking Doom's relationship with Stark.","source":"https://www.marvel.com/comics/issue/136383/doomquest_2026_2_variant/variant"},{"id":"books-of-doom","type":"COMICS","name":"Books of Doom","earth":"EARTH-616","relevance":"HIGH","summary":"A Doom origin story covering Victor's life, rise and path to the throne of Latveria.","source":"https://www.marvel.com/comics/collection/124641/doctor_doom_books_of_doom_2025"},{"id":"doctor-doom-2019","type":"COMICS","name":"Doctor Doom (2019)","earth":"EARTH-616","relevance":"HIGH","summary":"Solo Doom series involving Doom's fall, investigation, Kang, Mephisto and the question of a better life.","source":"https://www.marvel.com/comics/series/27932/doctor_doom_2019_-_present"},{"id":"dungeons-of-doom","type":"COMICS","name":"Dungeons of Doom","earth":"MULTIVERSE","relevance":"MEDIUM","summary":"A current Doom-titled series listed by Marvel, useful for keeping the database current.","source":"https://www.marvel.com/comics/characters/1009281"},{"id":"latveria","type":"LOCATION","name":"Latveria","earth":"EARTH-616","relevance":"CORE","summary":"Doom's nation and political base; one of the most important persistent locations in his history.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"castle-doom","type":"LOCATION","name":"Castle Doom","earth":"EARTH-616","relevance":"CORE","summary":"Doom's iconic fortress and recurring operational center.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"doom-armor","type":"OBJECT","name":"Doom's Armor","earth":"EARTH-616","relevance":"CORE","summary":"Victor's signature technological armor, combining protection, weapons and advanced systems.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"time-platform","type":"OBJECT","name":"Time Platform","earth":"EARTH-616","relevance":"HIGH","summary":"Doom's time-travel technology; relevant to Doomquest and his history of rewriting circumstances.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"science","type":"POWER / SKILL","name":"Super-Genius Intellect","earth":"EARTH-616","relevance":"CORE","summary":"Doom's scientific and engineering genius is a defining part of his character.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"sorcery","type":"POWER / SKILL","name":"Sorcery","earth":"EARTH-616","relevance":"CORE","summary":"Doom is both scientist and sorcerer, making magic a core part of his toolkit.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"time-travel","type":"POWER / TECHNOLOGY","name":"Time Travel","earth":"MULTIVERSE","relevance":"HIGH","summary":"Doom's technology and stories repeatedly intersect with time travel and alternate histories.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"},{"id":"fantastic-four","type":"TEAM","name":"Fantastic Four","earth":"EARTH-616","relevance":"CORE","summary":"Doom's foundational heroic opposition and the family around his defining rivalry with Reed Richards.","source":"https://www.marvel.com/comics/guides/264/doctor_doom"}];
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+
+function show(view, recordId=null){
+  $$(".view").forEach(v=>v.classList.toggle("active", v.id===view));
+  $$("[data-go]").forEach(b=>b.classList.toggle("active", b.dataset.go===view));
+  if(view==="database" && recordId) openRecord(recordId);
+  else if(view==="database") closeRecord();
+  window.scrollTo({top:0,behavior:"instant"});
+  history.replaceState(null,"","#"+view+(recordId?"/"+encodeURIComponent(recordId):""));
+}
+$$("[data-go]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.go)));
+
+function renderTheories(){
+  const q=($("#theorySearch").value||"").toLowerCase().trim();
+  const filter=document.querySelector("[data-theory-filter].active")?.dataset.theoryFilter||"all";
+  const rows=THEORIES.filter(t=>{
+    const type=t.type.toLowerCase().includes("original")?"original":"remix";
+    return (filter==="all"||filter===type) && (!q || [t.title,t.summary,t.tag,t.type].join(" ").toLowerCase().includes(q));
+  });
+  $("#theoryList").innerHTML=rows.map(t=>`
+    <article class="theory-card">
+      <div class="theory-top"><span class="pill">${esc(t.type)} · ${esc(t.tag)}</span><span class="conf">${esc(t.confidence)}%</span></div>
+      <h3>${esc(t.title)}</h3>
+      <p>${esc(t.summary)}</p>
+      <div class="theory-footer"><span>MY CONFIDENCE</span><span>${esc(t.confidence)}% // ${esc(t.type)}</span></div>
+    </article>`).join("");
+}
+$$("[data-theory-filter]").forEach(b=>b.addEventListener("click",()=>{
+  $$("[data-theory-filter]").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderTheories();
+}));
+$("#theorySearch").addEventListener("input",renderTheories);
+
+function renderDb(){
+  const q=($("#dbSearch").value||"").toLowerCase().trim();
+  const filter=document.querySelector("[data-db-filter].active")?.dataset.dbFilter||"all";
+  const rows=DB.filter(x=>{
+    const type=String(x.type||"");
+    return (filter==="all"||type.startsWith(filter)) &&
+      (!q||[x.name,x.type,x.earth,x.summary,x.relevance].join(" ").toLowerCase().includes(q));
+  });
+  $("#dbList").innerHTML=rows.length ? rows.map(x=>`
+    <button class="db-row" data-open="${esc(x.id)}">
+      <div class="db-type">${esc(x.type)}</div>
+      <div><h3>${esc(x.name)}</h3><p>${esc(x.summary)}</p></div>
+      <div><div class="earth">${esc(x.earth)}</div><div class="db-open">OPEN ↗</div></div>
+    </button>`).join("") :
+    `<div class="section" style="margin:0;text-align:center"><b>NO MATCHES</b><p>Try another search.</p></div>`;
+  $$("[data-open]").forEach(b=>b.addEventListener("click",()=>openRecord(b.dataset.open)));
+}
+$$("[data-db-filter]").forEach(b=>b.addEventListener("click",()=>{
+  $$("[data-db-filter]").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderDb();
+}));
+$("#dbSearch").addEventListener("input",renderDb);
+
+function openRecord(id){
+  const x=DB.find(r=>r.id===id);
+  if(!x)return;
+  $("#dbBrowse").style.display="none";
+  $("#record").style.display="block";
+  $("#record").classList.add("active");
+  $("#recordBody").innerHTML=`
+    <div class="record-grid">
+      <div>
+        <div class="eyebrow">${esc(x.type)} // ${esc(x.earth)}</div>
+        <h2>${esc(x.name)}</h2>
+        <p style="font-size:17px;max-width:760px">${esc(x.summary)}</p>
+        <a class="btn" href="${esc(x.source||'https://www.marvel.com/characters/doctor-doom-victor-von-doom/in-comics')}" target="_blank" rel="noopener">OPEN MARVEL SOURCE ↗</a>
+      </div>
+      <aside class="record-aside"><div><b>${esc(x.relevance||"—")}</b><span>DOOM RELEVANCE</span></div><div><b>${esc(x.earth||"—")}</b><span>UNIVERSE / REALITY</span></div></aside>
+    </div>`;
+  history.replaceState(null,"","#database/"+encodeURIComponent(id));
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function closeRecord(){
+  $("#record").classList.remove("active");$("#record").style.display="none";$("#dbBrowse").style.display="";
+  $("#recordBody").innerHTML="";
+}
+$("#backDb").addEventListener("click",()=>{ $("#record").style.display=""; closeRecord(); show("database"); });
+
+function countdown(){
+  const target=new Date("2026-12-17T00:00:00-08:00").getTime();
+  let diff=Math.max(0,target-Date.now());
+  const d=Math.floor(diff/86400000);diff%=86400000;
+  const h=Math.floor(diff/3600000);diff%=3600000;
+  const m=Math.floor(diff/60000);const s=Math.floor((diff%60000)/1000);
+  $("#days").textContent=String(d).padStart(2,"0");$("#hours").textContent=String(h).padStart(2,"0");
+  $("#mins").textContent=String(m).padStart(2,"0");$("#secs").textContent=String(s).padStart(2,"0");
+}
+function boot(){
+  renderTheories();renderDb();$("#dbCount").textContent=DB.length;
+  const hash=location.hash.replace(/^#/,"");
+  if(hash.startsWith("database/")) show("database",decodeURIComponent(hash.slice(9)));
+  else show(["home","theories","database","menu"].includes(hash)?hash:"home");
+  countdown();setInterval(countdown,1000);
+}
+boot();
+</script>
+</body>
+</html>

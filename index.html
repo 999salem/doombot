@@ -94,6 +94,11 @@ a{color:inherit}
 .bottom{display:none}
 .source-note{margin-top:16px;color:#65736a;font-size:11px;line-height:1.5}
 
+
+.throne-scene{position:absolute;inset:0;background:radial-gradient(circle at 67% 40%,rgba(106,255,128,.18),transparent 24%),radial-gradient(circle at 50% 65%,rgba(44,117,55,.15),transparent 42%),linear-gradient(180deg,#050807 0%,#0b1510 55%,#020403 100%);overflow:hidden}.throne-scene:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 80px,rgba(114,255,134,.025) 81px 82px),linear-gradient(90deg,rgba(0,0,0,.65),transparent 35%,transparent 70%,rgba(0,0,0,.65))}.throne-glow{position:absolute;width:520px;height:520px;left:56%;top:22%;transform:translate(-50%,-10%);border-radius:50%;background:radial-gradient(circle,rgba(114,255,134,.24),rgba(114,255,134,.05) 28%,transparent 65%);filter:blur(5px)}.throne{position:absolute;left:61%;top:23%;transform:translateX(-50%);width:250px;height:390px;filter:drop-shadow(0 20px 25px rgba(0,0,0,.75))}.throne:before,.throne:after{content:"";position:absolute;bottom:25px;width:55px;height:275px;background:linear-gradient(90deg,#111915,#39473d 48%,#0c120f);border:2px solid #526259;clip-path:polygon(0 0,100% 8%,85% 100%,15% 100%)}.throne:before{left:0}.throne:after{right:0}.throne i{position:absolute;left:45px;right:45px;top:0;height:330px;background:linear-gradient(135deg,#4a574f,#111713 38%,#2d382f);border:3px solid #66746b;clip-path:polygon(12% 0,88% 0,100% 100%,0 100%);border-radius:24px 24px 10px 10px}.throne b{position:absolute;left:72px;right:72px;top:48px;height:235px;background:linear-gradient(160deg,#121914,#303d34 50%,#0a0e0c);border:2px solid #536159;border-radius:16px 16px 5px 5px;z-index:2}.throne b:after{content:"";position:absolute;inset:25px;border:1px solid rgba(114,255,134,.35);box-shadow:inset 0 0 30px rgba(114,255,134,.08)}.throne em{position:absolute;z-index:4;left:50%;top:80px;transform:translateX(-50%) rotate(45deg);width:52px;height:52px;background:#13271a;border:2px solid #8cff9a;box-shadow:0 0 45px rgba(114,255,134,.65)}.throne-floor{position:absolute;left:0;right:0;bottom:-8%;height:45%;background:radial-gradient(ellipse at center,rgba(114,255,134,.13),transparent 50%),linear-gradient(180deg,transparent,#020403)}
+.db-row{grid-template-columns:74px 130px minmax(0,1fr) 120px}.db-thumb{width:74px;height:74px;border-radius:12px;object-fit:cover;border:1px solid rgba(114,255,134,.2);background:#0b1710}
+@media(max-width:760px){.db-row{grid-template-columns:58px 1fr}.db-thumb{width:58px;height:58px}.db-row>div:nth-child(2){grid-column:2}.db-row>div:nth-child(3){grid-column:2}.db-row>div:last-child{grid-column:2;text-align:left}.throne{left:67%;transform:translateX(-50%) scale(.78);transform-origin:center top}.throne-glow{left:67%}}
+
 /* RICH MARVEL-DATABASE MODE */
 .db-shell{margin-top:18px}
 .db-banner{position:relative;min-height:190px;border:1px solid rgba(114,255,134,.22);border-radius:22px;overflow:hidden;background:
@@ -215,7 +220,7 @@ linear-gradient(100deg,rgba(4,12,7,.98),rgba(8,29,16,.84)),radial-gradient(circl
 <main>
 <section class="view active" id="home">
   <div class="hero">
-    <img class="doom-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Doctor_Doom.jpg/960px-Doctor_Doom.jpg" alt="Doctor Doom character figure">
+    <div class="throne-scene" aria-label="Doom throne room, no character shown"><div class="throne-glow"></div><div class="throne"><i></i><b></b><em></em></div><div class="throne-floor"></div></div>
     <div class="hero-content">
       <div class="eyebrow">DOOMSDAY COMMAND CENTER // 999SALEM</div>
       <h1><span>DOCTOR</span><span>DOOM</span></h1>
@@ -230,7 +235,7 @@ linear-gradient(100deg,rgba(4,12,7,.98),rgba(8,29,16,.84)),radial-gradient(circl
         <button class="btn primary" data-go="theories">ENTER THEORY ARCHIVE</button>
         <button class="btn" data-go="database">OPEN MARVEL DATABASE</button>
       </div>
-      <div class="source-note">Homepage character image: William Tung, CC BY-SA 2.0 via Wikimedia Commons. Marvel reference: official Doctor Doom character page.</div>
+      <div class="source-note">THRONE ROOM // LATVERIA // DOOM PRESENCE DETECTED</div>
     </div>
   </div>
 
@@ -363,6 +368,26 @@ $$("[data-theory-filter]").forEach(b=>b.addEventListener("click",()=>{
 }));
 $("#theorySearch").addEventListener("input",renderTheories);
 
+function svgPoster(title,sub,accent="#72ff86"){
+  const safe=String(title).replace(/&/g,"and").slice(0,22);
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07110a"/><stop offset="1" stop-color="#17291c"/></linearGradient></defs><rect width="600" height="600" fill="url(#g)"/><circle cx="430" cy="140" r="150" fill="${accent}" opacity=".10"/><path d="M90 480 L300 120 L510 480" fill="none" stroke="${accent}" stroke-width="5" opacity=".35"/><path d="M150 470 L300 210 L450 470" fill="none" stroke="#d8bd68" stroke-width="2" opacity=".45"/><text x="50" y="535" fill="#eef5ef" font-family="Georgia" font-size="44" font-weight="700">${safe}</text><text x="52" y="568" fill="${accent}" font-family="monospace" font-size="15" letter-spacing="4">${sub}</text></svg>`;
+  return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
+}
+const IMAGE_MAP={
+  doom:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Doctor_Doom.jpg/960px-Doctor_Doom.jpg",
+  loki:"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/SDCC13_-_Loki_in_Hall_H.jpg/960px-SDCC13_-_Loki_in_Hall_H.jpg",
+  reed:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Mr_Fantastic_1.jpg/960px-Mr_Fantastic_1.jpg",
+  tony:"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/DSC09902_-_Tony_Stark_as_Iron_Man_%2837081230641%29.jpg/960px-DSC09902_-_Tony_Stark_as_Iron_Man_%2837081230641%29.jpg"
+};
+function recordImage(x){
+  if(IMAGE_MAP[x.id]) return IMAGE_MAP[x.id];
+  if(String(x.type).startsWith("CHARACTER")) return svgPoster(x.name,"CHARACTER",x.id.includes("doom")?"#72ff86":"#d8bd68");
+  if(String(x.type).startsWith("EARTH")) return svgPoster(x.name,"EARTH","#72ff86");
+  if(String(x.type).startsWith("EVENT")) return svgPoster(x.name,"EVENT","#ff6262");
+  if(String(x.type).startsWith("COMICS")) return svgPoster(x.name,"COMICS","#d8bd68");
+  return svgPoster(x.name,String(x.type).split(" ")[0],"#72ff86");
+}
+
 function renderDb(){
   const q=($("#dbSearch").value||"").toLowerCase().trim();
   const filter=document.querySelector("[data-db-filter].active")?.dataset.dbFilter||"all";
@@ -373,6 +398,7 @@ function renderDb(){
   });
   $("#dbList").innerHTML=rows.length ? rows.map(x=>`
     <button class="db-row" data-open="${esc(x.id)}">
+      <img class="db-thumb" src="${recordImage(x)}" alt="${esc(x.name)}">
       <div class="db-type">${esc(x.type)}</div>
       <div><h3>${esc(x.name)}</h3><p>${esc(x.summary)}</p></div>
       <div><div class="earth">${esc(x.earth)}</div><div class="db-open">OPEN ↗</div></div>
@@ -385,6 +411,19 @@ $$("[data-db-filter]").forEach(b=>b.addEventListener("click",()=>{
 }));
 $("#dbSearch").addEventListener("input",renderDb);
 
+function tabContent(x,tab){
+  const isDoom=x.id==="doom";
+  if(tab==="history") return `<div class="article"><article class="article-main"><div class="eyebrow">HISTORY // ${esc(x.earth)}</div><h3>Historical Record</h3><p>${esc(x.summary)}</p><p>${isDoom?'Victor von Doom’s history runs from his early life in Latveria through his scientific rivalry with Reed Richards, the conquest of Latveria, repeated attempts to seize cosmic power, and his role in Battleworld.':'This record is indexed as a Doom-relevant node in the Marvel reference system. Its history will remain separate from 999SALEM theory.'}</p><h4>DATABASE NOTE</h4><p>Reference material is organized independently from prediction files so canon, chronology and theory are never mixed together.</p></article><aside class="article-side"><div class="side-title">TIMELINE NODE</div><b style="font:900 28px monospace;color:var(--green)">${esc(x.earth)}</b><p>CONNECTED TO DOOM MODEL</p></aside></div>`;
+  if(tab==="powers") return `<div class="article"><article class="article-main"><div class="eyebrow">POWERS // CAPABILITIES</div><h3>Power Profile</h3><p>${isDoom?'Doom combines genius-level science with extensive sorcery. Marvel identifies magic, superhuman strength and genius intelligence among his powers, alongside armor systems, robotics, weaponry and time-travel technology.':'This record’s capabilities are part of the reason it remains relevant to Doom’s wider strategy.'}</p><div class="gallery"><figure><img src="${recordImage(x)}" alt="${esc(x.name)}"><figcaption>PRIMARY RECORD</figcaption></figure><figure><img src="${svgPoster(x.name,'POWER','#72ff86')}" alt=""><figcaption>POWER INDEX</figcaption></figure><figure><img src="${svgPoster(x.earth,'UNIVERSE','#d8bd68')}" alt=""><figcaption>UNIVERSE NODE</figcaption></figure></div></article><aside class="article-side"><div class="side-title">DOOM RELEVANCE</div><b style="font:900 28px monospace;color:var(--green)">${esc(x.relevance||'—')}</b><div class="doom-meter"><i></i></div></aside></div>`;
+  if(tab==="relationships") return `<div class="article"><article class="article-main"><div class="eyebrow">RELATIONSHIPS // CONNECTION MAP</div><h3>Connected Characters</h3><p>${isDoom?'Reed Richards is Doom’s defining intellectual rival. Valeria Richards, Latveria and the Fantastic Four also sit inside Doom’s recurring relationship web.':'This record connects to Doom through characters, teams, Earths or events indexed elsewhere in the database.'}</p><div class="side-links"><a href="#database/doom" data-record-link="doom">Doctor Doom</a><a href="#database/reed" data-record-link="reed">Reed Richards</a><a href="#database/loki" data-record-link="loki">Loki</a><a href="#database/franklin" data-record-link="franklin">Franklin Richards</a></div></article><aside class="article-side"><div class="side-title">RELATION TYPE</div><p>RIVALRY / ALLIANCE / POWER NODE / REALITY CONNECTION</p></aside></div>`;
+  if(tab==="appearances") return `<div class="article"><article class="article-main"><div class="eyebrow">APPEARANCES // MARVEL INDEX</div><h3>Selected Appearances</h3><p>Use the official Marvel source for the publication record. This section is designed to grow into a browsable appearance index.</p><div class="side-links"><a href="${esc(x.source||'https://www.marvel.com/characters/doctor-doom-victor-von-doom/in-comics')}" target="_blank" rel="noopener">OPEN OFFICIAL MARVEL SOURCE ↗</a><a href="#database/secret-wars-2015" data-record-link="secret-wars-2015">SECRET WARS (2015)</a><a href="#database/one-world-under-doom" data-record-link="one-world-under-doom">ONE WORLD UNDER DOOM</a></div></article><aside class="article-side"><div class="side-title">INDEX STATUS</div><b style="font:900 28px monospace;color:var(--green)">ACTIVE</b><p>REFERENCE FILE</p></aside></div>`;
+  return doomArticleFor(x);
+}
+function doomArticleFor(x){
+  const isDoom=x.id==="doom";
+  return isDoom ? `<div class="article"><article class="article-main"><div class="eyebrow">BIOGRAPHY // EARTH-616</div><h3>Victor von Doom</h3><p>Victor von Doom is one of Marvel’s defining scientific and mystical antagonists: a Latverian ruler whose identity is built around intellect, power, control and his rivalry with Reed Richards.</p><p>Marvel’s official profile traces Doom’s early life, scientific rivalry with Reed, the armor, robotics, time travel and mastery of sorcery. citeturn0search4</p><div class="quote">“Doom is above all.”<small>DOOM // CHARACTER MOTIF</small></div><h4>SCIENCE + SORCERY</h4><p>Doom’s unusual threat profile comes from combining technological genius with mystical power.</p></article><aside class="article-side"><div class="side-title">CONNECTED RECORDS</div><div class="side-links"><a href="#database/god-emperor" data-record-link="god-emperor">God Emperor Doom</a><a href="#database/incursions" data-record-link="incursions">Incursions</a><a href="#database/battleworld" data-record-link="battleworld">Battleworld</a><a href="#database/reed" data-record-link="reed">Reed Richards</a><a href="#database/latveria" data-record-link="latveria">Latveria</a></div></aside></div>` : `<div class="article"><article class="article-main"><div class="eyebrow">REFERENCE FILE // ${esc(x.earth)}</div><h3>${esc(x.name)}</h3><p>${esc(x.summary)}</p><p>This entry is maintained as part of the Doom-focused Marvel database.</p></article><aside class="article-side"><div class="side-title">DOOM RELEVANCE</div><b style="font:900 28px monospace;color:var(--green)">${esc(x.relevance||'—')}</b></aside></div>`;
+}
+
 function openRecord(id){
   const x=DB.find(r=>r.id===id);
   if(!x)return;
@@ -393,7 +432,7 @@ function openRecord(id){
   $("#record").classList.add("active");
 
   const isDoom=x.id==="doom";
-  const image=isDoom ? "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Doctor_Doom.jpg/960px-Doctor_Doom.jpg" : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Doctor_Doom.jpg/960px-Doctor_Doom.jpg";
+  const image=recordImage(x);
   const aliases=isDoom ? "Doctor Doom · Victor von Doom · The Master" : x.name;
   const identity=isDoom ? "Publicly known" : "See source";
   const base=isDoom ? "Latveria · Castle Doom" : "—";
@@ -481,13 +520,13 @@ function openRecord(id){
       </aside>
     </div>
     <div class="record-tabs">
-      <button class="record-tab active">OVERVIEW</button>
-      <button class="record-tab">HISTORY</button>
-      <button class="record-tab">POWERS</button>
-      <button class="record-tab">RELATIONSHIPS</button>
-      <button class="record-tab">APPEARANCES</button>
+      <button class="record-tab active" data-tab="overview">OVERVIEW</button>
+      <button class="record-tab" data-tab="history">HISTORY</button>
+      <button class="record-tab" data-tab="powers">POWERS</button>
+      <button class="record-tab" data-tab="relationships">RELATIONSHIPS</button>
+      <button class="record-tab" data-tab="appearances">APPEARANCES</button>
     </div>
-    ${doomArticle}
+    <div id="recordTabContent">${doomArticle}</div>
   `;
 
   $$("[data-record-link]").forEach(a=>a.addEventListener("click",e=>{

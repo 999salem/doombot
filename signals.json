@@ -1,0 +1,45 @@
+{
+  "updatedAt": "2026-10-09T00:00:00Z",
+  "items": [
+    {
+      "title": "Marvel News \u2014 official news, trailers and announcements",
+      "url": "https://www.marvel.com/articles",
+      "source": "Marvel.com",
+      "published": "2026-10-09T00:00:00Z",
+      "type": "official",
+      "category": "Official news"
+    },
+    {
+      "title": "Marvel Superheroes \u2014 official video collection",
+      "url": "https://video.disney.com/collections/marvel",
+      "source": "Disney Video",
+      "published": "2026-10-09T00:00:00Z",
+      "type": "official",
+      "category": "Trailers and clips"
+    },
+    {
+      "title": "Marvel Entertainment \u2014 official YouTube channel",
+      "url": "https://www.youtube.com/@Marvel",
+      "source": "Marvel Entertainment",
+      "published": "2026-10-09T00:00:00Z",
+      "type": "official",
+      "category": "Videos"
+    },
+    {
+      "title": "Marvel Studios \u2014 official YouTube channel",
+      "url": "https://www.youtube.com/@MarvelStudios",
+      "source": "Marvel Studios",
+      "published": "2026-10-09T00:00:00Z",
+      "type": "official",
+      "category": "Videos"
+    },
+    {
+      "title": "D23 \u2014 official Disney fan news",
+      "url": "https://d23.com/marvel/",
+      "source": "D23",
+      "published": "2026-10-09T00:00:00Z",
+      "type": "official",
+      "category": "Announcements"
+    }
+  ]
+}

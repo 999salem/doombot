@@ -80,6 +80,29 @@ footer b{color:#9fba9f}
 @media(min-width:700px){.hero{padding-top:48px}.countdown{gap:14px}.time{padding:26px 10px 19px}.wrap{padding-left:26px;padding-right:26px}.section{margin-top:32px}}
 @media(max-width:390px){.wrap{padding-left:12px;padding-right:12px}.status{font-size:8px}.brand h1{font-size:15px}.brand p{font-size:7px}.countdown{gap:6px}.time{padding:17px 3px 13px}.unit{font-size:8px}.progress-panel{padding:14px}.add-fields{grid-template-columns:1fr 112px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.feed-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.feed-filters{display:flex;gap:5px;flex-wrap:wrap}
+.filter{border:1px solid #2e4232;background:#0a100c;color:#91a493;padding:8px 9px;border-radius:5px;font-size:9px;font-weight:850;letter-spacing:.1em}
+.filter.active{border-color:#6fa86c;color:#c5f0b8;background:#142319}
+.refresh-btn{padding:8px 10px}
+.feed-list{display:grid;gap:9px}
+.feed-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:14px;background:#0b120d;border:1px solid #27392b;border-radius:8px}
+.feed-copy{min-width:0}
+.feed-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:7px}
+.feed-badge{font-size:8px;font-weight:900;letter-spacing:.12em;padding:4px 6px;border:1px solid #3d6541;color:#b8efab;border-radius:3px}
+.feed-badge.news{border-color:#685537;color:#e5c88e}
+.feed-date{font-size:9px;color:#758b78}
+.feed-title{font-size:12px;line-height:1.45;font-weight:800;color:#e1ece0;text-decoration:none}
+.feed-title:hover{color:#b9f5a5}
+.feed-source{font-size:10px;color:#819785;margin-top:6px}
+.feed-open{align-self:center;text-decoration:none;color:#b9f5a5;font-size:10px;letter-spacing:.08em;border:1px solid #344b37;padding:8px;border-radius:5px;white-space:nowrap}
+.feed-empty{padding:18px;border:1px dashed #344438;border-radius:8px;color:#91a293;font-size:11px;line-height:1.6}
+.source-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.source-links a{font-size:10px;color:#a9c8a8;text-decoration:none;border:1px solid #2a3c2d;border-radius:4px;padding:7px 9px}
+.source-links a:hover{border-color:#75b971;color:#d4f4cb}
+@media(max-width:390px){.feed-item{grid-template-columns:1fr}.feed-open{justify-self:start}}
+
 </style>
 </head>
 <body>
@@ -136,6 +159,33 @@ footer b{color:#9fba9f}
       <p class="footnote">Milestones you add are saved only in this browser on this device. The site does not connect to an account or server. Release date is set to December 18, 2026; milestone dates are personal reminders, not claims of official announcements.</p>
     </section>
   </main>
+
+    <section class="section" id="signal-feed">
+      <div class="section-head">
+        <div><h3>Incoming signals</h3><p>New trailers, clips, official announcements and relevant coverage.</p></div>
+        <span class="tag" id="feedStatus">CONNECTING…</span>
+      </div>
+      <div class="feed-toolbar">
+        <div class="feed-filters" role="group" aria-label="Filter signals">
+          <button class="filter active" data-filter="all" type="button">ALL SIGNALS</button>
+          <button class="filter" data-filter="official" type="button">OFFICIAL</button>
+          <button class="filter" data-filter="news" type="button">NEWS</button>
+        </div>
+        <button class="btn quiet refresh-btn" id="refreshFeed" type="button">↻ Refresh</button>
+      </div>
+      <div class="feed-list" id="feedList">
+        <div class="feed-empty">Connecting to the signal network…</div>
+      </div>
+      <p class="footnote">The feed is updated by the repository's scheduled GitHub Action and refreshed when you open this page. Official sources are prioritized; news coverage is labeled separately. No rumor is treated as confirmed. If GitHub Actions is disabled or the updater fails, use the source links below.</p>
+      <div class="source-links">
+        <a href="https://www.marvel.com/articles" target="_blank" rel="noopener noreferrer">Marvel News ↗</a>
+        <a href="https://www.youtube.com/@Marvel" target="_blank" rel="noopener noreferrer">Marvel Entertainment ↗</a>
+        <a href="https://www.youtube.com/@MarvelStudios" target="_blank" rel="noopener noreferrer">Marvel Studios ↗</a>
+        <a href="https://video.disney.com/collections/marvel" target="_blank" rel="noopener noreferrer">Disney Video ↗</a>
+        <a href="https://d23.com/marvel/" target="_blank" rel="noopener noreferrer">D23 ↗</a>
+      </div>
+    </section>
+
   <footer><span><b>999SALEM</b> // DOOMSDAY WATCH</span><span>BUILT FOR THE WAIT · NO ACCOUNTS · NO FEEDS</span></footer>
 </div>
 <script>
@@ -222,6 +272,60 @@ footer b{color:#9fba9f}
     try{if(navigator.share)await navigator.share(data);else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);$('shareButton').textContent='Link copied ✓';setTimeout(()=>$('shareButton').textContent='Share tracker ↗',1800);}else window.prompt('Copy this tracker link:',location.href);}catch(e){}
   });
   document.addEventListener('visibilitychange',()=>{if(document.hidden&&soundOn)stopSound();});
+
+  // Scheduled source index is generated by .github/workflows/update-signals.yml.
+  let feedItems = [];
+  let activeFeedFilter = 'all';
+  const feedDate = value => {
+    if(!value) return 'DATE UNKNOWN';
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? 'DATE UNKNOWN' : d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+  };
+  function renderFeed(){
+    const list = $('feedList');
+    const visible = feedItems.filter(item => activeFeedFilter === 'all' || item.type === activeFeedFilter);
+    list.innerHTML = '';
+    if(!visible.length){
+      const empty = document.createElement('div'); empty.className='feed-empty';
+      empty.textContent = feedItems.length ? 'No items in this filter yet. Try All Signals or refresh later.' : 'No new matching signals were returned. Open one of the official source links below or refresh later.';
+      list.append(empty); return;
+    }
+    visible.slice(0,30).forEach(item => {
+      const row=document.createElement('article');row.className='feed-item';
+      const copy=document.createElement('div');copy.className='feed-copy';
+      const meta=document.createElement('div');meta.className='feed-meta';
+      const badge=document.createElement('span');badge.className='feed-badge'+(item.type==='news'?' news':'');badge.textContent=item.type==='official'?'OFFICIAL SOURCE':'NEWS COVERAGE';
+      const date=document.createElement('span');date.className='feed-date';date.textContent=feedDate(item.published);
+      meta.append(badge,date);
+      const title=document.createElement('a');title.className='feed-title';title.href=item.url;title.target='_blank';title.rel='noopener noreferrer';title.textContent=item.title;
+      const source=document.createElement('div');source.className='feed-source';source.textContent=(item.source||'Online source')+(item.category?' · '+item.category:'');
+      copy.append(meta,title,source);
+      const open=document.createElement('a');open.className='feed-open';open.href=item.url;open.target='_blank';open.rel='noopener noreferrer';open.textContent='OPEN ↗';
+      row.append(copy,open);list.append(row);
+    });
+  }
+  async function loadFeed(){
+    const status=$('feedStatus');
+    status.textContent='CHECKING…';
+    try{
+      const response=await fetch('./data/signals.json?ts='+Date.now(),{cache:'no-store'});
+      if(!response.ok) throw new Error('Feed not published yet');
+      const data=await response.json();
+      feedItems=Array.isArray(data.items)?data.items:[];
+      status.textContent=data.updatedAt?'UPDATED '+feedDate(data.updatedAt).toUpperCase():'SOURCE INDEX';
+      renderFeed();
+    }catch(e){
+      status.textContent='SOURCE LINKS READY';
+      $('feedList').innerHTML='<div class="feed-empty">The online source index is not available yet. Check that the GitHub Actions workflow has run, then refresh. Official source links remain available below.</div>';
+    }
+  }
+  document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
+    document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===button));
+    activeFeedFilter=button.dataset.filter;renderFeed();
+  }));
+  $('refreshFeed').addEventListener('click',loadFeed);
+  loadFeed();
+
 })();
 </script>
 </body>

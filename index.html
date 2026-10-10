@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080b09">
+<meta name="description" content="999SALEM — personal Avengers: Doomsday countdown tracker.">
+<title>999SALEM // DOOMSDAY COUNTDOWN</title>
+<style>
+:root{color-scheme:dark;--bg:#070a08;--panel:#0c120e;--panel2:#101a13;--line:#293b2d;--green:#b9f5a5;--green2:#6dca72;--muted:#91a293;--white:#f0f5ef;--red:#d45b4c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(ellipse at 50% 8%,#17311e 0%,#0a110c 32%,#070a08 72%)}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.14;background-image:linear-gradient(#8edc8a10 1px,transparent 1px),linear-gradient(90deg,#8edc8a10 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,black,transparent 80%)}
+button,input{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1040px,100%);margin:0 auto;padding:0 18px 40px}
+.topline{height:3px;background:linear-gradient(90deg,transparent,var(--green2),#e0f8a9,var(--green2),transparent);box-shadow:0 0 18px #76d96c70}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px 0 18px;border-bottom:1px solid #26352a}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.emblem{width:42px;height:42px;flex:none;border:1px solid #5c995e;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,#1b3821,#080d09);box-shadow:inset 0 0 20px #7edc6c16,0 0 24px #68d36c12}
+.emblem svg{width:27px;height:27px}
+.brand h1{font-size:17px;letter-spacing:.18em;margin:0;font-weight:900}
+.brand p{font-size:9px;letter-spacing:.15em;color:#9caf9d;margin:4px 0 0}
+.status{font-size:10px;letter-spacing:.12em;color:var(--green);display:flex;align-items:center;gap:7px;white-space:nowrap}
+.dot{width:7px;height:7px;background:#8de78a;border-radius:50%;box-shadow:0 0 10px #8de78a;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero{padding:36px 0 22px;text-align:center;position:relative}
+.hero-art{position:absolute;inset:0 0 auto;height:100%;overflow:hidden;pointer-events:none;z-index:-1}
+.hero-art:before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;top:-60px;left:50%;transform:translateX(-50%);background:radial-gradient(circle,#4b9c4c2c 0,#1d582326 32%,transparent 70%);filter:blur(8px)}
+.hero-art:after{content:"";position:absolute;left:50%;top:8px;transform:translateX(-50%);width:min(90%,650px);height:210px;background:linear-gradient(90deg,transparent,#a6ee8b08,transparent);border-top:1px solid #8cda7924;border-bottom:1px solid #8cda7912;clip-path:polygon(0 0,100% 0,84% 100%,16% 100%)}
+.kicker{font-size:10px;letter-spacing:.25em;color:var(--green);font-weight:800}
+h2{margin:13px 0 8px;font-size:clamp(34px,8vw,68px);line-height:.98;letter-spacing:-.055em;font-weight:950;text-transform:uppercase}
+h2 span{display:block;color:var(--green);text-shadow:0 0 30px #9be88727}
+.subtitle{font-size:12px;letter-spacing:.17em;color:#a9b8ab;margin:15px 0 0}
+.date-chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #466749;background:#0c160fbd;padding:8px 12px;border-radius:4px;font-size:11px;letter-spacing:.12em;color:#d5e7d1;margin-top:22px}
+.date-chip b{color:var(--green)}
+.countdown{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px auto 18px;max-width:780px}
+.time{min-width:0;position:relative;background:linear-gradient(160deg,#142219,#0b100c 75%);border:1px solid #38533b;border-radius:9px;padding:20px 6px 15px;box-shadow:inset 0 1px #b7f7a512,0 10px 28px #0005}
+.time:before{content:"";position:absolute;left:14px;right:14px;top:0;height:1px;background:linear-gradient(90deg,transparent,#b8f1a9aa,transparent)}
+.number{font-variant-numeric:tabular-nums;font-size:clamp(28px,7vw,58px);line-height:1;font-weight:850;letter-spacing:-.06em;color:#f1f7ed;text-shadow:0 0 22px #9de38b14}
+.unit{font-size:9px;letter-spacing:.19em;color:#91ad93;margin-top:10px;font-weight:800}
+.panel{border:1px solid var(--line);background:linear-gradient(145deg,#101812f2,#090e0bf2);border-radius:12px;overflow:hidden;box-shadow:0 16px 40px #0002}
+.progress-panel{padding:18px;margin:0 auto 16px;max-width:780px;text-align:left}
+.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.label{font-size:10px;font-weight:850;letter-spacing:.16em;color:#d5e7d3;text-transform:uppercase}
+.mini{font-size:10px;color:var(--green);font-variant-numeric:tabular-nums}
+.track{height:7px;border-radius:20px;background:#202b22;overflow:hidden;margin-top:13px;border:1px solid #2c3b2d}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#438f4c,#bdf4a4);box-shadow:0 0 16px #8ce78a80;border-radius:20px;transition:width .7s ease}
+.progress-foot{display:flex;justify-content:space-between;gap:12px;margin-top:9px;color:#839786;font-size:10px}
+.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:17px 0 34px}
+.btn{border:1px solid #496d4b;background:#122017;color:#d8f0d1;padding:11px 14px;border-radius:6px;font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase;transition:transform .15s,background .15s}
+.btn:hover{background:#1b3020;transform:translateY(-1px)}
+.btn.primary{background:var(--green);color:#0a120b;border-color:var(--green);box-shadow:0 0 24px #92e98118}
+.btn.quiet{border-color:#344438;background:#0b100c;color:#a9b9aa}
+.btn[aria-pressed="true"]{border-color:var(--green);color:var(--green)}
+.section{margin-top:26px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:12px}
+.section-head h3{font-size:17px;letter-spacing:-.02em;margin:0}
+.section-head p{font-size:11px;color:var(--muted);margin:5px 0 0;line-height:1.5}
+.tag{font-size:9px;letter-spacing:.14em;color:#9edc92;border:1px solid #37533a;padding:6px 8px;border-radius:4px;white-space:nowrap}
+.milestone-list{display:grid;gap:9px}
+.milestone{display:flex;align-items:center;gap:12px;padding:14px;background:#0c120e;border:1px solid #25362a;border-radius:8px}
+.milestone-mark{width:32px;height:32px;flex:none;display:grid;place-items:center;border-radius:7px;background:#15271a;border:1px solid #36553a;color:var(--green);font-size:15px}
+.milestone-copy{min-width:0;flex:1}
+.milestone-copy strong{display:block;font-size:12px;letter-spacing:.01em}
+.milestone-copy span{display:block;color:#8fa291;font-size:10px;margin-top:4px}
+.milestone-date{font-size:10px;color:#b4c8b1;text-align:right;white-space:nowrap}
+.milestone-date small{display:block;color:#718574;font-size:9px;margin-top:4px}
+.remove{border:0;background:transparent;color:#6d806f;padding:5px;font-size:16px}
+.remove:hover{color:#ff9c8e}
+.add-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:10px}
+.add-fields{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:8px;grid-column:1/-1}
+input{width:100%;min-width:0;background:#080d09;color:#e5eee3;border:1px solid #304333;border-radius:6px;padding:11px 12px;font-size:12px;outline:none}
+input:focus{border-color:#82c879;box-shadow:0 0 0 3px #75c96c16}
+.footnote{font-size:10px;color:#718575;line-height:1.6;margin:12px 0 0}
+footer{border-top:1px solid #233127;margin-top:34px;padding-top:18px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:9px;letter-spacing:.12em;color:#6f8372}
+footer b{color:#9fba9f}
+@media(min-width:700px){.hero{padding-top:48px}.countdown{gap:14px}.time{padding:26px 10px 19px}.wrap{padding-left:26px;padding-right:26px}.section{margin-top:32px}}
+@media(max-width:390px){.wrap{padding-left:12px;padding-right:12px}.status{font-size:8px}.brand h1{font-size:15px}.brand p{font-size:7px}.countdown{gap:6px}.time{padding:17px 3px 13px}.unit{font-size:8px}.progress-panel{padding:14px}.add-fields{grid-template-columns:1fr 112px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topline"></div>
+  <header>
+    <div class="brand">
+      <div class="emblem" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M16 3 27 8v8c0 6.5-4.6 10.7-11 13C9.6 26.7 5 22.5 5 16V8l11-5Z" stroke="#B9F5A5" stroke-width="1.4"/><path d="M11 11h10l-1.2 10-3.8 3-3.8-3L11 11Z" stroke="#B9F5A5" stroke-width="1.2"/><path d="m12 15 2 1m6-1-2 1M14 20h4" stroke="#B9F5A5" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </div>
+      <div><h1>999SALEM</h1><p>DOOMSDAY COUNTDOWN SYSTEM</p></div>
+    </div>
+    <div class="status"><span class="dot"></span> SYSTEM ONLINE</div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="main-title">
+      <div class="hero-art"></div>
+      <div class="kicker">THE FINAL COUNTDOWN BEGINS</div>
+      <h2 id="main-title">Avengers:<span>Doomsday</span></h2>
+      <p class="subtitle">ONE DAY WILL CHANGE EVERYTHING.</p>
+      <div class="date-chip"><span>THEATRICAL RELEASE</span><b>DEC 18, 2026</b></div>
+      <div class="countdown" role="timer" aria-live="off" aria-label="Time remaining until Avengers Doomsday">
+        <div class="time"><div class="number" id="days">000</div><div class="unit">DAYS</div></div>
+        <div class="time"><div class="number" id="hours">00</div><div class="unit">HOURS</div></div>
+        <div class="time"><div class="number" id="minutes">00</div><div class="unit">MINUTES</div></div>
+        <div class="time"><div class="number" id="seconds">00</div><div class="unit">SECONDS</div></div>
+      </div>
+      <div class="panel progress-panel">
+        <div class="panel-heading"><span class="label">The road to Doomsday</span><span class="mini" id="percent">0.00% COMPLETE</span></div>
+        <div class="track" role="progressbar" aria-label="Countdown progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressbar"><div class="fill" id="progress"></div></div>
+        <div class="progress-foot"><span id="elapsed">THE WAIT IS ALMOST OVER</span><span id="remaining">COUNTING DOWN</span></div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="soundToggle" type="button" aria-pressed="false">♪ Sound: Off</button>
+        <button class="btn quiet" id="testSound" type="button">Test signal</button>
+        <button class="btn quiet" id="shareButton" type="button">Share tracker ↗</button>
+      </div>
+    </section>
+
+    <section class="section" id="milestones">
+      <div class="section-head">
+        <div><h3>Mission milestones</h3><p>Your personal checkpoints on the road to Doomsday.</p></div>
+        <span class="tag">LOCAL TRACKER</span>
+      </div>
+      <div class="milestone-list" id="milestoneList"></div>
+      <form id="milestoneForm" class="add-row">
+        <div class="add-fields">
+          <input id="milestoneName" maxlength="70" placeholder="Add a milestone (e.g. Final trailer)" aria-label="Milestone name" required>
+          <input id="milestoneDate" type="date" aria-label="Milestone date" required>
+        </div>
+        <button class="btn primary" type="submit">+ Add milestone</button>
+      </form>
+      <p class="footnote">Milestones you add are saved only in this browser on this device. The site does not connect to an account or server. Release date is set to December 18, 2026; milestone dates are personal reminders, not claims of official announcements.</p>
+    </section>
+  </main>
+  <footer><span><b>999SALEM</b> // DOOMSDAY WATCH</span><span>BUILT FOR THE WAIT · NO ACCOUNTS · NO FEEDS</span></footer>
+</div>
+<script>
+(() => {
+  // Date-only release target, interpreted in the visitor's local timezone.
+  const target = new Date(2026, 11, 18, 0, 0, 0, 0);
+  // Progress starts from the initial launch window; this keeps the bar meaningful.
+  const progressStart = new Date(2024, 6, 27, 0, 0, 0, 0);
+  const $ = id => document.getElementById(id);
+  const pad = n => String(n).padStart(2, '0');
+  const formatDate = iso => new Date(iso + 'T12:00:00').toLocaleDateString(undefined, {year:'numeric',month:'short',day:'numeric'});
+  function tick(){
+    const now = new Date();
+    let ms = Math.max(0, target - now);
+    const totalSeconds = Math.floor(ms / 1000);
+    $('days').textContent = String(Math.floor(totalSeconds / 86400)).padStart(3,'0');
+    $('hours').textContent = pad(Math.floor(totalSeconds % 86400 / 3600));
+    $('minutes').textContent = pad(Math.floor(totalSeconds % 3600 / 60));
+    $('seconds').textContent = pad(totalSeconds % 60);
+    const total = target - progressStart;
+    const pct = Math.max(0, Math.min(100, ((now - progressStart) / total) * 100));
+    $('progress').style.width = pct + '%';
+    $('percent').textContent = pct.toFixed(2) + '% COMPLETE';
+    $('progressbar').setAttribute('aria-valuenow', pct.toFixed(2));
+    $('elapsed').textContent = now < progressStart ? 'THE COUNTDOWN IS SET' : 'THE WAIT IS ALMOST OVER';
+    $('remaining').textContent = ms <= 0 ? 'DOOMSDAY IS HERE' : Math.ceil(ms / 86400000).toLocaleString() + ' DAYS LEFT';
+    if(ms <= 0){$('main-title').innerHTML='Avengers:<span>Doomsday is here.</span>';$('remaining').textContent='THE DAY HAS ARRIVED';}
+  }
+  tick(); setInterval(tick, 1000);
+
+  const defaultMilestones = [
+    {id:'premiere',name:'Avengers: Doomsday release day',date:'2026-12-18',locked:true},
+    {id:'personal',name:'Your personal Doomsday countdown',date:'2026-12-18',locked:true}
+  ];
+  let custom = [];
+  try { custom = JSON.parse(localStorage.getItem('salemDoomsdayMilestones') || '[]'); if(!Array.isArray(custom)) custom=[]; } catch(e) { custom=[]; }
+  function renderMilestones(){
+    const list = $('milestoneList'); list.innerHTML = '';
+    const all = [...custom, ...defaultMilestones].sort((a,b)=>a.date.localeCompare(b.date));
+    all.forEach(m => {
+      const past = new Date(m.date + 'T23:59:59') < new Date();
+      const row = document.createElement('div'); row.className='milestone';
+      const mark = document.createElement('div'); mark.className='milestone-mark'; mark.textContent = past ? '✓' : '⌁';
+      const copy = document.createElement('div'); copy.className='milestone-copy';
+      const strong = document.createElement('strong'); strong.textContent=m.name;
+      const sub = document.createElement('span'); sub.textContent=past ? 'Checkpoint passed' : 'Upcoming checkpoint';
+      copy.append(strong,sub);
+      const date = document.createElement('div'); date.className='milestone-date'; date.textContent=formatDate(m.date);
+      const small=document.createElement('small'); const diff=Math.ceil((new Date(m.date+'T23:59:59')-new Date())/86400000); small.textContent=diff<0?'PASSED':diff===0?'TODAY':diff+' DAYS'; date.append(small);
+      row.append(mark,copy,date);
+      if(!m.locked){const del=document.createElement('button');del.type='button';del.className='remove';del.setAttribute('aria-label','Remove '+m.name);del.textContent='×';del.addEventListener('click',()=>{custom=custom.filter(x=>x.id!==m.id);save();renderMilestones();});row.append(del);}
+      list.append(row);
+    });
+  }
+  function save(){try{localStorage.setItem('salemDoomsdayMilestones',JSON.stringify(custom));}catch(e){}}
+  $('milestoneForm').addEventListener('submit', e=>{
+    e.preventDefault(); const name=$('milestoneName').value.trim(), date=$('milestoneDate').value;
+    if(!name||!date)return;
+    custom.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),name,date,locked:false});
+    save(); renderMilestones(); $('milestoneName').value=''; $('milestoneDate').value='';
+  });
+  renderMilestones();
+
+  let audioCtx=null, soundOn=false, soundTimer=null;
+  function beep(freq=660,duration=.07,volume=.035){
+    try{
+      audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+      if(audioCtx.state==='suspended') audioCtx.resume();
+      const osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+      osc.type='sine';osc.frequency.value=freq;gain.gain.setValueAtTime(volume,audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);
+      osc.connect(gain);gain.connect(audioCtx.destination);osc.start();osc.stop(audioCtx.currentTime+duration);
+    }catch(e){}
+  }
+  function stopSound(){soundOn=false;if(soundTimer)clearInterval(soundTimer);soundTimer=null;$('soundToggle').textContent='♪ Sound: Off';$('soundToggle').setAttribute('aria-pressed','false');}
+  $('soundToggle').addEventListener('click',()=>{
+    if(soundOn){stopSound();return;}
+    soundOn=true;beep(520,.08,.025);$('soundToggle').textContent='♪ Sound: On';$('soundToggle').setAttribute('aria-pressed','true');
+    soundTimer=setInterval(()=>{if(soundOn)beep(520,.055,.012);},15000);
+  });
+  $('testSound').addEventListener('click',()=>{beep(520,.08,.035);setTimeout(()=>beep(780,.1,.035),110);});
+  $('shareButton').addEventListener('click',async()=>{
+    const data={title:'999SALEM // Avengers: Doomsday Countdown',text:'The road to Avengers: Doomsday — December 18, 2026.',url:location.href};
+    try{if(navigator.share)await navigator.share(data);else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);$('shareButton').textContent='Link copied ✓';setTimeout(()=>$('shareButton').textContent='Share tracker ↗',1800);}else window.prompt('Copy this tracker link:',location.href);}catch(e){}
+  });
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&soundOn)stopSound();});
+})();
+</script>
+</body>
+</html>

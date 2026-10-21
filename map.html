@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050806">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DOOMBOT">
+<meta name="description" content="DOOMBOT Theory Map — 999SALEM Doomsday relationship model powered by S.A.L.E.M.">
+<title>DOOMBOT // Theory Map</title>
+<link rel="icon" href="./salem-mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="manifest" href="./manifest.webmanifest">
+<style id="doombot-v13-styles">
+:root{
+  --bg:#020403;--panel:#08100a;--panel2:#0c1610;--line:#213629;--line2:#3c5a43;
+  --text:#edf3ee;--muted:#87998b;--green:#7fff87;--green2:#43d961;
+  --gold:#c2a96d;--cyan:#79e1f7;--red:#ff7171;--purple:#c69aff;--amber:#f0c56c;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(91,255,111,.11),transparent 27%),
+    radial-gradient(circle at 10% 22%,rgba(194,169,109,.05),transparent 22%),
+    linear-gradient(180deg,#020403,#050906 45%,#020403);
+  min-height:100vh;overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.32;
+  background:
+    repeating-linear-gradient(180deg,rgba(255,255,255,.014) 0 1px,transparent 1px 4px),
+    linear-gradient(90deg,transparent 49.8%,rgba(127,255,135,.018) 50%,transparent 50.2%);
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button,input,textarea{font:inherit}
+.wrap{max-width:1460px;margin:auto;padding:10px;position:relative;z-index:1}
+.shell{border:1px solid #22372a;border-radius:22px;overflow:hidden;background:rgba(4,8,5,.88);box-shadow:0 28px 80px rgba(0,0,0,.35)}
+.topline{height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--green),var(--gold),transparent);opacity:.62}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;
+  border-bottom:1px solid #15251a;background:linear-gradient(180deg,rgba(15,23,17,.97),rgba(6,11,8,.95));
+  position:sticky;top:0;z-index:20;backdrop-filter:blur(16px)
+}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.mask{
+  width:40px;height:42px;position:relative;flex:0 0 auto;
+  clip-path:polygon(50% 0,86% 13%,100% 51%,77% 100%,23% 100%,0 51%,14% 13%);
+  background:linear-gradient(135deg,#737d75,#242d27 48%,#8e978f);box-shadow:0 0 20px rgba(120,255,131,.08)
+}
+.mask:before{content:"";position:absolute;inset:8px 11px 11px;border:1px solid #8a938b;border-radius:46% 46% 38% 38%;background:#141b16}
+.mask:after{content:"";position:absolute;left:10px;right:10px;bottom:9px;height:5px;border-top:1px solid #79847b;border-bottom:1px solid #79847b}
+.brand b{font-size:13px;letter-spacing:.24em}
+.brand small{display:block;color:var(--gold);font-size:8px;letter-spacing:.16em;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.chip{font-size:9px;letter-spacing:.09em;border:1px solid #2a4230;border-radius:8px;padding:6px 8px;color:#85988a;background:#08100a}
+.chip.live{color:var(--green);border-color:#386941}.chip.gold{color:#d2bd83;border-color:#61563a}
+
+.nav{display:flex;gap:6px;padding:9px 12px;border-bottom:1px solid #14241a;background:#060b08;overflow:auto}
+.nav a{
+  flex:0 0 auto;border:1px solid #203527;background:#08100a;color:#87988b;border-radius:9px;
+  padding:9px 12px;font-size:10px;font-weight:850;letter-spacing:.07em
+}
+.nav a:hover,.nav a:focus{color:var(--green);border-color:#487650;background:#122117}
+
+.main{padding:16px}
+.panel{border:1px solid #1b3121;border-radius:16px;background:linear-gradient(180deg,rgba(14,23,16,.96),rgba(7,12,9,.96));position:relative;overflow:hidden}
+.pad{padding:18px;position:relative;z-index:1}
+.eyebrow{color:var(--gold);font-size:9px;letter-spacing:.22em;text-transform:uppercase}
+.hero{display:grid;grid-template-columns:minmax(0,1.52fr) minmax(300px,.48fr);gap:14px}
+.hero h1{font:700 46px/1 Georgia,"Times New Roman",serif;margin:10px 0}
+.hero h1 span{color:var(--green);text-shadow:0 0 24px rgba(127,255,135,.12)}
+.hero p{margin:0;color:var(--muted);line-height:1.55;max-width:790px}
+.creator-note{
+  margin-top:14px;border:1px solid #4b4731;border-radius:10px;background:linear-gradient(180deg,#15140e,#0e0d09);padding:12px 13px
+}
+.creator-note b{display:block;color:#dfca90;font-size:11px;letter-spacing:.08em}
+.creator-note p{font-size:11px;margin:5px 0 0;color:#aca990}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.btn{display:inline-block;border:1px solid #315038;background:#0b150e;color:var(--text);padding:10px 12px;border-radius:9px;font-size:10px;font-weight:900;letter-spacing:.07em}
+.btn.primary{background:linear-gradient(180deg,#8aff8e,#46d961);border-color:#82ff8b;color:#061007}
+.btn.gold{border-color:#655a3c;color:#dec98e;background:#15140e}
+.index-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.index-head h2{margin:7px 0 3px;font-size:22px}.index-head small{color:var(--muted)}
+.ring{width:104px;height:104px;border-radius:50%;position:relative;display:grid;place-items:center;background:conic-gradient(var(--green) 0 84%,var(--gold) 84% 89%,#162219 89%)}
+.ring:before{content:"";position:absolute;inset:9px;border-radius:50%;background:#08100a}
+.ring div{position:relative;text-align:center}.ring strong{display:block;font-size:26px}.ring span{font-size:8px;letter-spacing:.11em;color:var(--muted)}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:15px}
+.metric{border:1px solid #1a2f20;border-radius:10px;padding:10px;background:#08100a}.metric b{display:block;font-size:20px}.metric small{font-size:9px;color:var(--muted)}
+
+.section{scroll-margin-top:95px;margin-top:20px}
+.section-title{display:flex;align-items:center;gap:10px;margin:19px 0 11px}
+.section-title:before,.section-title:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,#29442f)}
+.section-title:after{background:linear-gradient(90deg,#29442f,transparent)}
+.section-title span{font-size:9px;letter-spacing:.22em;color:#718476;white-space:nowrap}
+.section-intro{color:var(--muted);font-size:11px;line-height:1.55;margin:-3px 0 12px}
+
+.theory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.theory-card{border:1px solid #382d48;border-radius:13px;background:linear-gradient(180deg,#100d15,#08070b);padding:14px;position:relative}
+.theory-card:before{content:"999SALEM THEORY";display:inline-block;color:#d1adff;border:1px solid #60497b;border-radius:999px;padding:4px 7px;font-size:8px;letter-spacing:.11em}
+.theory-card h3{font-size:15px;margin:10px 0 6px}.theory-card p{font-size:11px;line-height:1.5;color:var(--muted);margin:0}
+.theory-score{margin-top:11px;display:flex;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid #2e263b;font-size:10px}
+.theory-score b{color:#d6b6ff}
+
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.leak-card{border:1px solid #1b3020;border-radius:14px;background:#08100a;overflow:hidden}
+.leak-img{aspect-ratio:16/10;background:#050806;overflow:hidden;position:relative}
+.leak-img img{width:100%;height:100%;object-fit:cover;transition:.25s}
+.leak-card:hover img{transform:scale(1.015)}
+.overlay-tag{position:absolute;left:10px;top:10px;background:rgba(4,8,5,.86);border:1px solid #4b5d4f;border-radius:999px;padding:5px 8px;font-size:8px;letter-spacing:.1em}
+.overlay-tag.red{color:#ff9797;border-color:#704040}.overlay-tag.gold{color:#e4cd91;border-color:#6b5d3b}.overlay-tag.cyan{color:#9cecff;border-color:#3b6370}
+.leak-body{padding:13px}
+.leak-body h3{font-size:15px;margin:0 0 6px}.leak-body p{font-size:11px;line-height:1.5;color:var(--muted);margin:0}
+.leak-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px;padding-top:8px;border-top:1px solid #15271b;font-size:9px;color:#748678}
+.source-link{display:inline-block;margin-top:10px;border:1px solid #2c4732;border-radius:8px;padding:8px 10px;font-size:9px;font-weight:850;color:var(--green)}
+.warning{border:1px solid #63423b;background:#160e0d;border-radius:11px;padding:11px 12px;color:#cdb2ad;font-size:10px;line-height:1.5;margin-bottom:12px}
+.warning b{color:#ff9990}
+
+.intel-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.intel{border:1px solid #1a3020;border-radius:13px;background:#08100a;padding:14px;position:relative;overflow:hidden}
+.intel:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#314a36}
+.intel.official:before{background:var(--green)}.intel.trade:before{background:var(--cyan)}.intel.leak:before{background:var(--red)}.intel.theory:before{background:var(--purple)}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}.tag{font-size:8px;letter-spacing:.11em;text-transform:uppercase;border:1px solid #29402e;border-radius:999px;padding:4px 7px;color:#849689}
+.tag.green{color:var(--green);border-color:#366d40}.tag.cyan{color:var(--cyan);border-color:#38616b}.tag.red{color:#ff8d8d;border-color:#6d3939}.tag.purple{color:#d0aeff;border-color:#604a7b}
+.intel h3{font-size:15px;margin:0 0 6px}.intel p{font-size:11px;color:var(--muted);line-height:1.5;margin:0}
+.analysis{margin-top:10px;padding:10px;border-left:2px solid #3e6547;background:#0b160e;color:#aab8ad;font-size:10px;line-height:1.5}
+
+.board{border:1px solid #1a3020;border-radius:14px;background:#050906;padding:12px;overflow:auto}
+.board svg{display:block;width:100%;min-width:760px;height:auto}
+.edge{fill:none;stroke:#36513b;stroke-width:1.6;stroke-dasharray:7 8}
+.edge.theory{stroke:#75559d}.edge.leak{stroke:#774444}.edge.gold{stroke:#706543}
+.node circle{fill:#0b130e;stroke:#3c5742;stroke-width:1.5}.node.core circle{stroke:#bca563}.node.theory-node circle{stroke:#7758a0}.node.leak-node circle{stroke:#814b4b}
+.node text{fill:#d9e5db;font-size:12px;font-weight:750}.node .sub{fill:#718477;font-size:9px;font-weight:500}
+.board-legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.legend{font-size:9px;border:1px solid #29402e;border-radius:999px;padding:5px 8px;color:var(--muted)}
+
+.creator-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:12px}
+.creator-card{border:1px solid #4a4430;border-radius:14px;background:linear-gradient(180deg,#12110c,#0a0907);padding:15px}
+.creator-card h2{margin:7px 0 6px;font-size:20px}.creator-card p{margin:0;color:#a9a48f;font-size:11px;line-height:1.55}
+.quote{margin-top:11px;border-left:2px solid var(--gold);padding:10px 12px;background:#17150e;color:#d0c7aa;font-size:11px;line-height:1.5}
+.principles{display:grid;gap:8px}.principle{border:1px solid #1b3020;border-radius:10px;padding:10px;background:#08100a}.principle b{display:block;font-size:11px}.principle span{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+
+.social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.social-card{border:1px solid #1b3020;border-radius:11px;background:#08100a;padding:11px}
+.social-card b{font-size:11px}.social-card p{font-size:10px;color:var(--muted);line-height:1.45}
+.social-card a{font-size:9px;color:var(--green)}
+
+footer{padding:14px;border-top:1px solid #14251a;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#5e7062;font-size:8px;letter-spacing:.09em}
+
+@media(max-width:980px){
+  .hero,.creator-grid{grid-template-columns:1fr}
+  .theory-grid,.social-grid{grid-template-columns:1fr 1fr}
+  .topbar{position:static}
+}
+@media(max-width:680px){
+  .wrap{padding:6px}.main{padding:10px}.chips .gold{display:none}
+  .hero h1{font-size:33px}.gallery,.intel-grid,.theory-grid,.social-grid{grid-template-columns:1fr}
+  .index-head{flex-direction:column}
+}
+
+.theory-card.core-file{border-color:#4a5637;background:linear-gradient(180deg,#10150e,#080b07)}
+.theory-card.core-file:before{content:"999SALEM // ORIGINAL THEORY";color:#d9c483;border-color:#6a5e3d}
+.theory-card.remix-file{border-color:#382d48;background:linear-gradient(180deg,#100d15,#08070b)}
+.theory-card.remix-file:before{content:"999SALEM // THEORY REMIX";color:#d1adff;border-color:#60497b}
+.theory-source{margin-top:9px;font-size:8px;letter-spacing:.08em;color:#766e88}
+.theory-source a{color:#c9a6f5;border-bottom:1px dotted #6d5688}
+.theory-label{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.mini-tag{font-size:7px;letter-spacing:.1em;border:1px solid #344238;border-radius:999px;padding:4px 6px;color:#89978c}
+.mini-tag.hot{color:#9bffa1;border-color:#3b6a43}
+.mini-tag.wild{color:#ffc68d;border-color:#6b4e38}
+.map-title-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
+.map-title-row b{font-size:12px;letter-spacing:.12em}
+.map-title-row span{font-size:9px;color:var(--muted)}
+.map-node-link{cursor:pointer}
+.map-node-link:hover circle,.map-node-link:focus circle{stroke:#8aff91;stroke-width:2.7}
+.map-node-link:hover text,.map-node-link:focus text{fill:#a8ffad}
+.edge.strong{stroke:#5c9c67;stroke-width:2}
+.edge.power{stroke:#b08f48;stroke-width:2}
+.edge.conflict{stroke:#9a4f4f;stroke-width:2}
+.edge.identity{stroke:#7653a0;stroke-width:2}
+.map-rail{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:10px}
+.map-rail a{border:1px solid #253d2c;background:#08100a;border-radius:8px;padding:8px;font-size:8px;text-align:center;color:#87988b}
+.map-rail a:hover{color:var(--green);border-color:#4d7955}
+@media(max-width:760px){.map-rail{grid-template-columns:repeat(2,1fr)}}
+
+
+/* Functional polish */
+.status-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 0
+}
+.status-cell{
+  border:1px solid #1b3020;border-radius:10px;background:#07100a;padding:10px
+}
+.status-cell span{display:block;color:var(--muted);font-size:8px;letter-spacing:.11em}
+.status-cell b{display:block;margin-top:4px;font-size:12px}
+.status-cell a{color:var(--green)}
+.desk-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}
+.analyst-desk{
+  border:1px solid #3a533f;border-radius:14px;background:
+  radial-gradient(circle at 100% 0,rgba(127,255,135,.05),transparent 30%),
+  linear-gradient(180deg,#0b150e,#070c09);padding:14px
+}
+.desk-title{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.desk-title h3{margin:6px 0 0;font-size:17px}
+.desk-title small{color:var(--muted);font-size:9px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.field{display:grid;gap:5px}
+.field.full{grid-column:1/-1}
+.field label{font-size:8px;letter-spacing:.1em;color:#7f9183}
+.field input,.field select,.field textarea,.theory-note{
+  width:100%;border:1px solid #263e2d;background:#061009;color:var(--text);
+  border-radius:8px;padding:10px;outline:none
+}
+.field textarea{min-height:82px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus,.theory-note:focus{border-color:#527d59}
+.desk-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.action-btn{
+  border:1px solid #315038;background:#0b150e;color:var(--text);border-radius:8px;
+  padding:9px 10px;font-size:9px;font-weight:850;letter-spacing:.07em;cursor:pointer
+}
+.action-btn.primary{background:linear-gradient(180deg,#8aff8e,#46d961);border-color:#82ff8b;color:#061007}
+.score-box{
+  border:1px solid #4b4430;border-radius:12px;background:#12110c;padding:13px
+}
+.score-number{font-size:38px;font-weight:900;line-height:1}
+.score-number span{font-size:15px;color:var(--muted)}
+.score-bar{height:7px;background:#1a201a;border-radius:99px;overflow:hidden;margin-top:10px}
+.score-bar i{display:block;width:68%;height:100%;background:linear-gradient(90deg,var(--red),var(--gold),var(--green))}
+.score-reasons{display:grid;gap:6px;margin-top:11px;font-size:9px}
+.score-reasons div{display:flex;justify-content:space-between;gap:8px;border-top:1px solid #25271d;padding-top:6px}
+.score-reasons span:last-child{color:var(--muted)}
+.queue{display:grid;gap:7px;margin-top:10px}
+.queue-item{border:1px solid #1c3322;border-radius:9px;background:#07100a;padding:10px}
+.queue-item-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.queue-item b{font-size:10px}.queue-item small{font-size:8px;color:var(--muted)}
+.queue-item p{font-size:9px;color:var(--muted);margin:6px 0 0;line-height:1.45}
+.queue-empty{font-size:10px;color:var(--muted);padding:10px 0}
+.toolbar2{display:flex;justify-content:space-between;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:11px}
+.search2{min-width:250px;flex:1;max-width:430px;border:1px solid #263e2d;background:#07100a;color:var(--text);border-radius:9px;padding:10px 12px;outline:none}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap}
+.filter2{
+  border:1px solid #203628;background:#08100a;color:#87998b;padding:8px 10px;border-radius:8px;
+  font-size:8px;font-weight:850;letter-spacing:.06em;cursor:pointer
+}
+.filter2.active{color:var(--green);border-color:#487650;background:#122117}
+.theory-tools{display:flex;justify-content:space-between;gap:7px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.lock-btn{
+  border:1px solid #4b4430;background:#14120c;color:#d8c68e;border-radius:8px;padding:7px 9px;
+  font-size:8px;font-weight:850;letter-spacing:.07em;cursor:pointer
+}
+.lock-btn.locked{color:#071009;background:#d7c27e;border-color:#e6cf89}
+.note-toggle{
+  border:1px solid #2d4934;background:#0b140e;color:#90a394;border-radius:8px;padding:7px 9px;
+  font-size:8px;font-weight:850;letter-spacing:.07em;cursor:pointer
+}
+.note-panel{display:none;margin-top:8px}.note-panel.show{display:block}
+.theory-note{min-height:70px;resize:vertical;font-size:10px}
+.save-note{margin-top:6px}
+.leak-controls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.leak-card.hidden,.theory-card.hidden{display:none}
+.gallery img{background:#080d09}
+.gallery .image-fallback{
+  min-height:100%;display:grid;place-items:center;padding:18px;text-align:center;color:#91a095;font-size:10px
+}
+.image-open{
+  position:absolute;right:10px;bottom:10px;border:1px solid rgba(255,255,255,.25);
+  background:rgba(4,8,5,.85);color:#fff;border-radius:8px;padding:6px 8px;font-size:8px
+}
+.edge{animation:edgeFlow 7s linear infinite}
+@keyframes edgeFlow{to{stroke-dashoffset:-60}}
+.map-inspector{
+  display:grid;grid-template-columns:.72fr 1.28fr;gap:10px;margin-top:11px
+}
+.inspect-summary,.inspect-detail{
+  border:1px solid #1b3020;border-radius:11px;background:#07100a;padding:12px
+}
+.inspect-summary h3{font-size:16px;margin:6px 0}.inspect-summary p,.inspect-detail p{font-size:10px;line-height:1.5;color:var(--muted);margin:0}
+.inspect-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.inspect-stat{border:1px solid #1d3323;border-radius:8px;padding:8px;background:#050a07}
+.inspect-stat span{display:block;font-size:7px;color:var(--muted)}.inspect-stat b{display:block;font-size:11px;margin-top:3px}
+.inspect-link{display:inline-block;margin-top:9px;color:var(--green);font-size:9px;border-bottom:1px dotted #497850}
+.release-count{
+  color:var(--green);font-size:19px!important;font-weight:900
+}
+.toast{
+  position:fixed;right:16px;bottom:16px;z-index:100;background:#0a130d;border:1px solid #34513b;
+  border-radius:9px;padding:11px 13px;font-size:10px;color:#dbe7dd;opacity:0;transform:translateY(8px);
+  pointer-events:none;transition:.2s
+}
+.toast.show{opacity:1;transform:none}
+.js-only{display:none}
+html.js .js-only{display:block}
+@media(max-width:980px){
+  .desk-grid,.map-inspector{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .status-strip{grid-template-columns:1fr 1fr}
+  .field-grid{grid-template-columns:1fr}.field.full{grid-column:auto}
+  .inspect-stats{grid-template-columns:1fr 1fr 1fr}
+}
+
+
+/* Repo build */
+#live-intel .intel{min-height:220px}
+#live-intel .source-link{margin-top:10px}
+@media (display-mode: standalone){
+  body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+}
+
+
+/* ===== V10 COUNTDOWN / LANDING POLISH ===== */
+.countdown-hero{grid-template-columns:minmax(0,1.62fr) minmax(300px,.38fr)}
+.countdown-panel{
+  background:
+    radial-gradient(circle at 74% 10%,rgba(127,255,135,.08),transparent 26%),
+    radial-gradient(circle at 5% 90%,rgba(194,169,109,.055),transparent 30%),
+    linear-gradient(180deg,rgba(13,23,16,.98),rgba(5,10,7,.98));
+}
+.countdown-panel:before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.28;
+  background:linear-gradient(110deg,transparent 0 43%,rgba(127,255,135,.035) 43.2% 43.5%,transparent 43.7% 100%);
+}
+.countdown-heading{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-top:10px
+}
+.countdown-kicker{
+  display:block;color:#b9c5bb;font-size:11px;font-weight:900;letter-spacing:.32em;margin-bottom:4px
+}
+.countdown-heading h1{
+  font:700 clamp(44px,6.2vw,86px)/.88 Georgia,"Times New Roman",serif;
+  letter-spacing:-.045em;margin:0;text-transform:uppercase
+}
+.countdown-heading h1 span{
+  color:var(--green);text-shadow:0 0 38px rgba(127,255,135,.15)
+}
+.countdown-date{
+  min-width:160px;text-align:right;border-right:2px solid var(--gold);padding-right:11px;padding-bottom:4px
+}
+.countdown-date span{
+  display:block;color:var(--muted);font-size:8px;letter-spacing:.13em
+}
+.countdown-date b{
+  display:block;color:#e3cf96;font-size:15px;letter-spacing:.06em;margin-top:5px
+}
+.mega-countdown{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;
+  gap:9px;align-items:center;margin-top:22px;border-top:1px solid #203629;border-bottom:1px solid #203629;
+  padding:18px 0
+}
+.time-block{text-align:center;min-width:0}
+.time-block strong{
+  display:block;font-size:clamp(38px,6.8vw,82px);line-height:.88;letter-spacing:-.055em;
+  font-variant-numeric:tabular-nums;color:#f1f5f1
+}
+.time-block:first-child strong{color:var(--green)}
+.time-block span{
+  display:block;margin-top:8px;color:#718477;font-size:8px;font-weight:900;letter-spacing:.2em
+}
+.time-divider{
+  color:#425d48;font:700 clamp(25px,3.6vw,48px)/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  transform:translateY(-8px)
+}
+.countdown-progress{margin-top:13px}
+.progress-copy{display:flex;justify-content:space-between;gap:10px;font-size:8px;letter-spacing:.12em;color:#748678}
+.progress-copy b{color:#a7b8aa}
+.progress-track{height:4px;background:#121e16;border-radius:99px;overflow:hidden;margin-top:7px}
+.progress-track i{
+  display:block;width:0;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),#7dba73,var(--green));transition:width .7s ease
+}
+.encore-card{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 18px;align-items:center;
+  margin-top:15px;border:1px solid #4a4430;border-radius:12px;padding:12px 13px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(194,169,109,.08),transparent 35%),
+    linear-gradient(180deg,#14130d,#0c0d09)
+}
+.encore-copy h3{font-size:14px;margin:6px 0 4px}
+.encore-copy p{font-size:10px;line-height:1.5;color:#9f9d8c;margin:0}
+.encore-copy p b{color:#d8c58d}
+.encore-countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.encore-countdown div{
+  min-width:51px;text-align:center;border:1px solid #3e3b2b;border-radius:8px;background:#0b0d09;padding:7px 5px
+}
+.encore-countdown strong{
+  display:block;font-size:18px;line-height:1;font-variant-numeric:tabular-nums;color:#e2ce93
+}
+.encore-countdown span{display:block;margin-top:4px;font-size:7px;letter-spacing:.12em;color:#77776d}
+.encore-link{
+  grid-column:1/-1;justify-self:end;color:#dac58d;border-bottom:1px dotted #756842;
+  font-size:8px;font-weight:900;letter-spacing:.09em
+}
+.countdown-footer{
+  display:flex;gap:8px 18px;flex-wrap:wrap;margin-top:12px;color:#607165;font-size:8px;letter-spacing:.08em
+}
+.countdown-footer b{color:#8fa193}
+.command-panel{
+  background:
+    radial-gradient(circle at 80% 0,rgba(194,169,109,.055),transparent 30%),
+    linear-gradient(180deg,rgba(12,20,14,.97),rgba(6,11,8,.98));
+}
+.metric-link{display:block;transition:border-color .18s,background .18s,transform .18s}
+.metric-link:hover{border-color:#4e7756;background:#0d1810;transform:translateY(-1px)}
+.quick-nav{display:grid;gap:7px;margin-top:11px}
+.quick-nav .btn{text-align:center}
+.command-readout{display:grid;gap:7px;margin-top:12px;border-top:1px solid #182b1e;padding-top:11px}
+.command-readout div{display:flex;justify-content:space-between;gap:12px;font-size:8px;letter-spacing:.07em}
+.command-readout span{color:#6f8173}.command-readout b{color:#a8b5aa;text-align:right}
+.nav a:first-child{color:#b9ffbd;border-color:#426d4a}
+@media(max-width:1060px){
+  .countdown-hero{grid-template-columns:1fr}
+  .command-panel .metrics{grid-template-columns:repeat(4,1fr)}
+  .quick-nav{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:720px){
+  .countdown-heading{align-items:flex-start;flex-direction:column}
+  .countdown-date{text-align:left;border-right:0;border-left:2px solid var(--gold);padding-right:0;padding-left:10px}
+  .mega-countdown{gap:3px;padding:15px 0}
+  .time-block strong{font-size:clamp(33px,11vw,58px)}
+  .time-divider{font-size:25px;transform:translateY(-6px)}
+  .encore-card{grid-template-columns:1fr}
+  .encore-countdown{width:100%}
+  .encore-link{justify-self:start}
+  .command-panel .metrics{grid-template-columns:repeat(2,1fr)}
+  .quick-nav{grid-template-columns:1fr}
+}
+@media(max-width:420px){
+  .mega-countdown{grid-template-columns:1fr 1fr;gap:8px}
+  .time-divider{display:none}
+  .time-block{border:1px solid #1d3323;border-radius:9px;padding:10px 5px;background:#07100a}
+  .time-block strong{font-size:42px}
+  .encore-countdown div{min-width:0}
+}
+
+
+/* ===== V11 VISUAL DATABASE ===== */
+.database-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:11px 0 12px}
+.database-stats div{border:1px solid #1a3020;border-radius:9px;background:#07100a;padding:9px}
+.database-stats span{display:block;color:var(--muted);font-size:7px;letter-spacing:.1em}.database-stats b{display:block;font-size:12px;margin-top:4px}
+.gallery-database{grid-template-columns:repeat(3,minmax(0,1fr))}
+.database-card{min-width:0}.db-card-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:7px}
+.db-date{font-size:8px;color:#718477;letter-spacing:.08em}.db-confidence{font-size:9px;font-weight:900;border:1px solid #344b39;border-radius:999px;padding:4px 7px}
+.db-confidence.green{color:var(--green);border-color:#3b6943}.db-confidence.gold{color:#dfc984;border-color:#675b3c}.db-confidence.red{color:#ff9999;border-color:#6d3c3c}.db-confidence.purple{color:#d0afff;border-color:#5c4777}
+.overlay-tag.purple{color:#d2b3ff;border-color:#5d4778}.overlay-tag.green{color:var(--green);border-color:#376a40}
+.image-status{position:absolute;left:10px;bottom:10px;background:rgba(4,8,5,.86);border:1px solid #314735;border-radius:999px;padding:4px 6px;font-size:7px;letter-spacing:.08em;color:#86988a}
+.source-only{display:grid!important;place-items:center;background:radial-gradient(circle at 50% 40%,rgba(198,154,255,.12),transparent 28%),#050806}
+.source-only-inner{text-align:center;padding:30px 18px}.source-only-inner .source-glyph{font-size:38px;color:#b891e6}.source-only-inner b{display:block;font-size:12px;letter-spacing:.12em}.source-only-inner span{display:block;color:var(--muted);font-size:9px;margin-top:7px}
+.db-sort-row{display:flex!important;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;margin:-3px 0 10px;color:#718477;font-size:8px;letter-spacing:.08em}
+.database-card .leak-img{aspect-ratio:16/10}
+.database-card .leak-body h3{min-height:2.4em}
+.database-card .leak-body p{min-height:4.5em}
+.image-fallback-v11{height:100%;display:grid;place-items:center;background:radial-gradient(circle,#102318,#050806 65%);text-align:center;padding:20px;color:#87998b;font-size:9px;letter-spacing:.07em}
+@media(max-width:1120px){.gallery-database{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.database-stats{grid-template-columns:1fr 1fr}.gallery-database{grid-template-columns:1fr}.database-card .leak-body p,.database-card .leak-body h3{min-height:0}}
+
+/* V11.2 image loader hotfix */
+.image-fallback-v11{
+  min-height:220px;height:100%;
+  display:grid;place-items:center;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(127,255,135,.055),transparent 28%),
+    #050906;
+  text-align:center;padding:24px;color:#87998b;
+  font-size:9px;line-height:1.55;letter-spacing:.07em
+}
+.db-image img{background:#050906}
+.image-status{backdrop-filter:blur(8px)}
+@media(max-width:680px){
+  .image-fallback-v11{min-height:160px}
+}
+
+/* V11.3 resilient leak-card fallbacks */
+.compact-fallback{
+  min-height:180px!important;
+  background:
+    linear-gradient(135deg,rgba(127,255,135,.025),transparent 50%),
+    #050906!important;
+}
+.image-status{max-width:145px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:680px){.compact-fallback{min-height:130px!important}}
+
+
+/* =========================================================
+   DOOMBOT V12 — MULTI-PAGE APP SHELL
+   ========================================================= */
+.v12-page .main{min-height:72vh}
+.brand b{font-size:14px}
+.v12-nav a.active{
+  color:#061008!important;background:linear-gradient(180deg,#8aff8e,#45d861)!important;
+  border-color:#80ff88!important
+}
+.v12-home-countdown{margin-top:0}
+.v12-home-countdown .countdown-panel{width:100%}
+.v12-home-countdown .countdown-heading h1{
+  font-size:clamp(48px,8vw,104px)
+}
+.v12-home-countdown .mega-countdown .time-block strong{
+  font-size:clamp(42px,8vw,96px)
+}
+.v12-modules{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px
+}
+.module-card{
+  min-height:156px;border:1px solid #1b3020;border-radius:14px;background:
+  radial-gradient(circle at 100% 0,rgba(127,255,135,.035),transparent 34%),
+  linear-gradient(180deg,#0b140e,#070c09);
+  padding:15px;display:flex;flex-direction:column;transition:.18s
+}
+.module-card:hover{border-color:#4d7755;transform:translateY(-2px);background:#0c1710}
+.module-card>span{font-size:8px;color:var(--muted);letter-spacing:.13em}
+.module-card>b{font:700 24px/1 Georgia,"Times New Roman",serif;margin-top:9px}
+.module-card>p{color:var(--muted);font-size:10px;line-height:1.5;margin:8px 0}
+.module-card>i{font-style:normal;color:var(--green);font-size:8px;font-weight:900;letter-spacing:.1em;margin-top:auto}
+.leak-module{border-color:#3d2929}.leak-module>i{color:#ff9292}
+.theory-module{border-color:#382d48}.theory-module>i{color:#d0aeff}
+.analyst-module{border-color:#304735}
+.map-module{border-color:#524a31}.map-module>i{color:#dfca90}
+.about-module{border-color:#27352c}
+.home-map-actions{
+  display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;
+  margin:-2px 0 10px;color:var(--muted);font-size:9px
+}
+.v12-page-hero{
+  border:1px solid #1b3020;border-radius:16px;background:
+  radial-gradient(circle at 80% 0,rgba(127,255,135,.05),transparent 30%),
+  linear-gradient(180deg,#0d1710,#070c09);
+  padding:18px;margin-bottom:17px
+}
+.v12-page-hero h1{
+  font:700 clamp(34px,6vw,64px)/.95 Georgia,"Times New Roman",serif;
+  margin:8px 0 8px
+}
+.v12-page-hero p{max-width:760px;color:var(--muted);font-size:11px;line-height:1.55;margin:0}
+.back-command{
+  display:inline-block;margin-bottom:11px;border:1px solid #2b4732;border-radius:8px;
+  padding:7px 9px;color:#9bb19f;font-size:8px;font-weight:900;letter-spacing:.08em
+}
+.bottom-nav{display:none}
+.home-page #evidence{scroll-margin-top:105px}
+
+/* The map is the homepage's second star, not a buried module. */
+.home-page #evidence{
+  margin-top:18px;border-top:1px solid #15271b;padding-top:3px
+}
+.home-page .board{
+  background:
+    radial-gradient(circle at 50% 40%,rgba(127,255,135,.055),transparent 30%),
+    #050906
+}
+
+/* Pages only carry one job each. */
+.intel-page #live-intel,.intel-page #intel,
+.leaks-page #leak-gallery,.theories-page #my-theories,
+.analyst-page #analyst-desk,.about-page #about{margin-top:0}
+
+/* Better phone navigation. */
+@media(max-width:760px){
+  body{padding-bottom:76px}
+  .v12-nav{display:none}
+  .bottom-nav{
+    position:fixed;left:8px;right:8px;bottom:8px;z-index:200;
+    display:grid;grid-template-columns:repeat(5,1fr);gap:4px;
+    border:1px solid #29402e;border-radius:16px;padding:6px;
+    background:rgba(5,10,7,.94);backdrop-filter:blur(18px);
+    box-shadow:0 12px 36px rgba(0,0,0,.48)
+  }
+  .bottom-nav a{
+    min-width:0;min-height:50px;border-radius:10px;display:grid;place-items:center;
+    align-content:center;gap:2px;color:#718477
+  }
+  .bottom-nav a b{font-size:17px;line-height:1}
+  .bottom-nav a span{font-size:7px;font-weight:900;letter-spacing:.06em}
+  .bottom-nav a.active{background:#122117;color:var(--green);border:1px solid #3c6845}
+  .v12-modules{grid-template-columns:1fr 1fr}
+  .module-card{min-height:142px;padding:13px}
+  .module-card>b{font-size:20px}
+  .topbar{position:static}
+  footer{padding-bottom:18px}
+}
+@media(max-width:470px){
+  .v12-modules{grid-template-columns:1fr 1fr}
+  .module-card{min-height:128px}
+  .module-card>p{font-size:9px}
+  .v12-home-countdown .countdown-heading h1{font-size:44px}
+}
+
+
+/* =========================================================
+   DOOMBOT V13 — APP SHELL POLISH
+   ========================================================= */
+html{scroll-behavior:smooth}
+body.v13-page{animation:appPageIn .18s ease both}
+body.page-exit{opacity:.25;transform:translateY(3px);transition:opacity .11s ease,transform .11s ease}
+@keyframes appPageIn{from{opacity:.45;transform:translateY(3px)}to{opacity:1;transform:none}}
+body.modal-open{overflow:hidden}
+
+/* Native-feeling press states */
+button,.btn,.module-card,.bottom-nav a,.app-tool{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:active,.btn:active,.module-card:active,.bottom-nav a:active,.app-tool:active{transform:scale(.975)!important}
+
+/* Header app tools */
+.topbar{gap:10px}
+.app-tools{margin-left:auto;display:flex;gap:5px;align-items:center}
+.app-tool{
+  height:34px;min-width:34px;border:1px solid #243b2a;border-radius:9px;background:#08100b;
+  color:#a4b7a8;display:flex;align-items:center;justify-content:center;gap:5px;padding:0 8px;
+  font:900 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer
+}
+.app-tool span{font-size:7px;letter-spacing:.08em}
+.app-tool:hover{border-color:#50765a;color:var(--green)}
+.chips{margin-left:0}
+
+/* New notification badges */
+.nav a,.bottom-nav a,.module-card{position:relative}
+.new-badge{
+  position:absolute;top:3px;right:3px;min-width:16px;height:16px;border-radius:99px;padding:0 4px;
+  display:grid;place-items:center;background:#ff5c5c;color:#160303;border:1px solid #ff9999;
+  font:900 8px/1 ui-monospace,SFMono-Regular,Menlo,monospace;font-style:normal;
+  box-shadow:0 0 16px rgba(255,80,80,.25)
+}
+.module-card>.new-badge{top:10px;right:10px}
+.bottom-nav .new-badge{top:3px;right:18%}
+
+/* Since last visit */
+.since-card{
+  margin-top:12px;border:1px solid #223d29;border-radius:13px;background:
+  linear-gradient(90deg,rgba(127,255,135,.035),transparent 36%),#08100b;
+  padding:11px 13px;display:flex;align-items:center;justify-content:space-between;gap:14px
+}
+.since-card[data-state="new"]{border-color:#5a7139;box-shadow:inset 3px 0 #b9cd70}
+.since-copy{min-width:0}
+.since-copy span{display:block;color:#708176;font-size:7px;letter-spacing:.13em;font-weight:900}
+.since-copy b{display:block;margin-top:3px;font-size:12px;color:#d9e2da;letter-spacing:.03em}
+.since-copy p{margin:3px 0 0;color:#829187;font-size:9px}
+.since-actions{display:flex;gap:6px;flex-wrap:wrap}
+.since-actions button,.since-actions a{
+  border:1px solid #2c4633;border-radius:8px;background:#0b150e;color:#9aac9e;padding:7px 9px;
+  font-size:7px;font-weight:900;letter-spacing:.07em
+}
+
+/* Card share/favorites */
+.app-card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px;padding-top:9px;border-top:1px solid rgba(130,160,137,.14)}
+.mini-app-action{
+  border:1px solid #2a4030;border-radius:7px;background:#09100b;color:#809185;
+  padding:7px 9px;font-size:7px;font-weight:900;letter-spacing:.07em;cursor:pointer
+}
+.mini-app-action:hover{color:#bdcfbf;border-color:#4e7257}
+.favorite-action.active{color:#e4ca80;border-color:#6a5f3d;background:#17140c}
+
+/* Drawer */
+.app-drawer{position:fixed;inset:0;z-index:600;pointer-events:none;visibility:hidden}
+.app-drawer.open{pointer-events:auto;visibility:visible}
+.app-drawer-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.65);opacity:0;transition:.18s}
+.app-drawer.open .app-drawer-backdrop{opacity:1}
+.app-drawer-panel{
+  position:absolute;top:0;right:0;height:100%;width:min(430px,92vw);background:#061009;border-left:1px solid #31503a;
+  transform:translateX(102%);transition:.22s ease;padding:max(16px,env(safe-area-inset-top)) 14px max(16px,env(safe-area-inset-bottom));
+  box-shadow:-20px 0 70px rgba(0,0,0,.5);overflow:auto
+}
+.app-drawer.open .app-drawer-panel{transform:none}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid #1e3425}
+.drawer-head span{display:block;color:#66796a;font-size:7px;letter-spacing:.12em}
+.drawer-head b{display:block;margin-top:2px;font:700 25px/1 Georgia,"Times New Roman",serif}
+.drawer-head button,.modal-x{
+  width:36px;height:36px;border-radius:10px;border:1px solid #304a36;background:#0b150e;color:#a6b8aa;font-size:22px
+}
+.watch-items{display:grid;gap:7px;margin-top:12px}
+.watch-row{
+  display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;border:1px solid #1e3425;border-radius:10px;
+  background:#08100b;padding:10px
+}
+.watch-row span{display:block;color:#697c6d;font-size:6px;letter-spacing:.1em}
+.watch-row b{display:block;margin-top:3px;font-size:10px}
+.watch-row a{color:var(--green);font-size:7px;font-weight:900}
+.watch-row button{border:0;background:transparent;color:#6d7f71;font-size:18px}
+.drawer-footer{margin-top:14px;border-top:1px solid #1e3425;padding-top:11px}
+.drawer-footer a{color:#84988a;font-size:8px;font-weight:900;letter-spacing:.08em}
+.empty-state{text-align:center;padding:50px 16px;color:#708175}
+.empty-state b{color:#9cad9f}.empty-state p{font-size:9px;line-height:1.5}
+
+/* Modals */
+.app-modal{position:fixed;inset:0;z-index:650;display:grid;place-items:center;visibility:hidden;pointer-events:none;padding:18px}
+.app-modal.open{visibility:visible;pointer-events:auto}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(7px);opacity:0;transition:.18s}
+.app-modal.open .modal-backdrop{opacity:1}
+.app-modal-card{
+  position:relative;width:min(500px,100%);max-height:min(720px,88vh);overflow:auto;
+  border:1px solid #35513b;border-radius:17px;background:
+  radial-gradient(circle at 70% 0,rgba(127,255,135,.06),transparent 33%),#07100a;
+  padding:19px;box-shadow:0 24px 80px rgba(0,0,0,.58);
+  opacity:0;transform:translateY(10px) scale(.985);transition:.2s
+}
+.app-modal.open .app-modal-card{opacity:1;transform:none}
+.modal-x{position:absolute;right:12px;top:12px}
+.app-modal-card h2{font:700 28px/1.02 Georgia,"Times New Roman",serif;margin:8px 46px 10px 0}
+.modal-copy{color:#8b9c8f;font-size:10px;line-height:1.55}
+.full-btn{width:100%;margin-top:10px}
+.tier-help{display:grid;gap:6px;margin:13px 0}
+.tier-help div{display:grid;grid-template-columns:70px 1fr;gap:8px;align-items:center;border:1px solid #1d3223;border-radius:8px;padding:8px}
+.tier-help b{color:var(--green);font-size:9px}.tier-help span{color:#90a094;font-size:9px}
+
+/* Install sheet */
+.install-mark,.welcome-mark{
+  width:48px;height:48px;border:1px solid #4c7956;border-radius:13px;display:grid;place-items:center;
+  background:radial-gradient(circle,#1b3820,#07100a 70%);color:#9dffa4;
+  font:700 27px/1 Georgia,"Times New Roman",serif;box-shadow:0 0 30px rgba(80,255,100,.09)
+}
+.install-steps{display:grid;gap:7px;margin:13px 0}
+.install-steps>div{display:grid;grid-template-columns:28px 1fr;gap:9px;align-items:center;border:1px solid #203727;border-radius:10px;padding:9px}
+.install-steps b{width:28px;height:28px;border-radius:8px;background:#112017;display:grid;place-items:center;color:#c5d4c8;font-size:9px}
+.install-steps span{color:#96a69a;font-size:9px;line-height:1.45}
+.not-now-btn{width:100%;margin-top:7px;border:0;background:transparent;color:#718277;padding:10px;font-size:8px;font-weight:900;letter-spacing:.08em}
+.install-card>small{display:block;text-align:center;color:#55665a;font-size:7px}
+
+/* First launch */
+.welcome-screen{
+  position:fixed;inset:0;z-index:800;background:
+  linear-gradient(rgba(5,14,8,.96),rgba(1,4,2,.99)),
+  repeating-linear-gradient(0deg,transparent 0 2px,rgba(127,255,135,.025) 2px 3px);
+  display:grid;place-items:center;padding:20px;transition:.3s
+}
+.welcome-screen.closing{opacity:0;transform:scale(1.01);pointer-events:none}
+.welcome-scan{position:absolute;left:0;right:0;height:1px;background:rgba(127,255,135,.35);box-shadow:0 0 18px rgba(127,255,135,.2);animation:welcomeScan 2.1s linear infinite}
+@keyframes welcomeScan{from{top:5%}to{top:95%}}
+.welcome-inner{text-align:center;width:min(520px,100%);position:relative}
+.welcome-mark{margin:0 auto 14px;width:64px;height:64px;font-size:35px}
+.welcome-inner>span{color:#7c9080;font-size:8px;font-weight:900;letter-spacing:.18em}
+.welcome-inner h1{font:700 clamp(50px,14vw,88px)/.9 Georgia,"Times New Roman",serif;margin:9px 0;color:#edf3ee;letter-spacing:-.04em}
+.welcome-inner>p{color:var(--green);font-size:8px;letter-spacing:.18em;font-weight:900}
+.boot-lines{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:17px 0}
+.boot-lines i{font-style:normal;border:1px solid #294331;border-radius:99px;padding:5px 7px;color:#718475;font-size:6px;letter-spacing:.08em}
+.enter-app{min-width:210px}.skip-intro{display:block;margin:8px auto 0;border:0;background:transparent;color:#5f7164;font-size:7px;font-weight:900;letter-spacing:.08em}
+
+/* Offline */
+.offline-banner{
+  position:fixed;left:50%;top:max(8px,env(safe-area-inset-top));transform:translate(-50%,-150%);
+  z-index:700;display:grid;grid-template-columns:auto auto auto;align-items:center;gap:7px;
+  border:1px solid #735d32;border-radius:99px;background:#181308;color:#e2ce91;padding:7px 8px 7px 11px;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);transition:.22s
+}
+.offline-banner.show{transform:translate(-50%,0)}
+.offline-banner b{font-size:8px}.offline-banner span{font-size:7px;color:#ad9a69}.offline-banner button{border:0;background:transparent;color:#b6a471;font-size:14px}
+.chip.live.offline{color:#d8bf79;border-color:#62532d}
+
+/* Loading skeletons */
+.db-image{position:relative;overflow:hidden}
+.db-image:not(.image-ready)::after{
+  content:"";position:absolute;inset:0;background:
+  linear-gradient(100deg,#08100b 20%,#142119 40%,#08100b 60%);
+  background-size:220% 100%;animation:skeletonMove 1.2s linear infinite;z-index:1
+}
+.db-image:not(.image-ready) .overlay-tag,.db-image:not(.image-ready) .image-open,.db-image:not(.image-ready) .image-status{z-index:2}
+@keyframes skeletonMove{to{background-position:-220% 0}}
+#liveIntelGrid{position:relative}
+#liveIntelGrid.live-fetching::after{
+  content:"S.A.L.E.M. SCANNING LIVE SOURCES…";position:absolute;inset:0;display:grid;place-items:center;
+  border-radius:10px;background:linear-gradient(100deg,rgba(6,13,8,.72),rgba(20,34,24,.82),rgba(6,13,8,.72));
+  background-size:220% 100%;animation:skeletonMove 1.2s linear infinite;color:#849b89;font-size:8px;font-weight:900;letter-spacing:.12em
+}
+
+/* Settings */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.settings-panel{border:1px solid #203727;border-radius:13px;background:#08100b;padding:14px}
+.settings-panel h3{margin:0 0 4px;font-size:13px}.settings-panel>p{color:#708176;font-size:9px;line-height:1.5}
+.setting-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 0;border-top:1px solid #17291d}
+.setting-row:first-of-type{margin-top:10px}
+.setting-copy b{display:block;font-size:9px}.setting-copy span{display:block;margin-top:2px;color:#68796c;font-size:8px;line-height:1.4}
+.switch{position:relative;width:45px;height:26px;flex:0 0 auto}
+.switch input{opacity:0;width:0;height:0}
+.switch i{position:absolute;inset:0;border:1px solid #314538;border-radius:99px;background:#101913;transition:.18s}
+.switch i:after{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;border-radius:50%;background:#6b776e;transition:.18s}
+.switch input:checked+i{background:#15301c;border-color:#4a8055}
+.switch input:checked+i:after{transform:translateX(19px);background:var(--green)}
+.settings-actions{display:grid;gap:7px;margin-top:11px}
+.settings-actions button{width:100%;text-align:left;border:1px solid #2a4030;border-radius:9px;background:#0a130d;color:#9aac9e;padding:10px;font-size:8px;font-weight:900;letter-spacing:.06em}
+.settings-actions button.danger{border-color:#49302f;color:#c89995}
+
+/* Compact gallery */
+.compact-leaks .gallery-database{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))!important}
+.compact-leaks .db-image{min-height:145px!important;height:145px!important}
+.compact-leaks .leak-body>p{display:none}
+.compact-leaks .leak-body{padding:10px!important}
+.hide-disputed .leak-card[data-disputed="true"]{display:none!important}
+
+/* Reduced motion */
+html.reduce-motion *,html.reduce-motion *::before,html.reduce-motion *::after{
+  scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important
+}
+
+/* Shared anchor targets */
+.theory-card,.leak-card,.intel{scroll-margin-top:100px}
+
+@media(max-width:900px){
+  .chips{display:none}
+  .app-tools{margin-left:auto}
+}
+@media(max-width:760px){
+  .app-tools{width:100%;justify-content:flex-end;border-top:1px solid #15261a;padding-top:7px}
+  .app-tool span{display:none}.app-tool{width:34px;padding:0}
+  .since-card{align-items:flex-start;flex-direction:column}
+  .settings-grid{grid-template-columns:1fr}
+  .app-modal{align-items:end;padding:8px}
+  .app-modal-card{border-radius:18px 18px 12px 12px;max-height:88vh}
+  .install-card{padding-bottom:max(18px,env(safe-area-inset-bottom))}
+}
+@media(max-width:430px){
+  .topbar{padding-bottom:9px}
+  .brand small{max-width:235px}
+}
+
+
+
+/* DOOMBOT V13.1 — launch stability */
+.install-nudge{
+  position:fixed;z-index:590;left:50%;bottom:calc(82px + env(safe-area-inset-bottom));
+  width:min(430px,calc(100% - 24px));transform:translate(-50%,18px);
+  opacity:0;pointer-events:none;display:grid;grid-template-columns:1fr auto auto;
+  align-items:center;gap:8px;border:1px solid #35513b;border-radius:13px;
+  background:rgba(7,16,10,.96);backdrop-filter:blur(16px);
+  padding:10px 10px 10px 12px;box-shadow:0 14px 45px rgba(0,0,0,.5);
+  transition:.2s ease
+}
+.install-nudge.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.install-nudge b{display:block;color:#d7e1d9;font-size:8px;letter-spacing:.06em}
+.install-nudge span{display:block;color:#708175;font-size:7px;margin-top:2px}
+.install-nudge button{
+  border:1px solid #375943;border-radius:8px;background:#102016;color:#9dffa4;
+  padding:8px;font-size:7px;font-weight:900;letter-spacing:.06em
+}
+.install-nudge .nudge-x{width:31px;height:31px;padding:0;background:#0a120d;color:#829286;font-size:16px}
+.welcome-screen{pointer-events:none}
+.welcome-screen .welcome-inner{pointer-events:auto}
+@media(min-width:761px){.install-nudge{bottom:18px}}
+
+
+
+/* =========================================================
+   DOOMBOT V13.2 — MOBILE HEADER POLISH
+   ========================================================= */
+.brand small{
+  max-width:460px;
+}
+
+/* Phone header becomes two clean rows:
+   1) brand
+   2) utility controls */
+@media(max-width:760px){
+  .topbar{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    align-items:stretch!important;
+    gap:9px!important;
+    padding:11px 12px 10px!important;
+  }
+
+  .brand{
+    width:100%!important;
+    gap:10px!important;
+    align-items:center!important;
+  }
+
+  .brand>div:last-child{
+    min-width:0;
+    flex:1;
+  }
+
+  .brand b{
+    display:block;
+    font-size:17px!important;
+    letter-spacing:.22em!important;
+    line-height:1!important;
+  }
+
+  .brand small{
+    display:block!important;
+    margin-top:5px!important;
+    max-width:none!important;
+    white-space:normal!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    color:#bfa873!important;
+    font-size:7px!important;
+    line-height:1.35!important;
+    letter-spacing:.12em!important;
+  }
+
+  .mask{
+    width:43px!important;
+    height:45px!important;
+  }
+
+  .chips{
+    display:none!important;
+  }
+
+  .app-tools{
+    width:100%!important;
+    margin:0!important;
+    padding:8px 0 0!important;
+    border-top:1px solid #192c1f!important;
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:6px!important;
+  }
+
+  .app-tool{
+    width:100%!important;
+    min-width:0!important;
+    height:42px!important;
+    padding:4px 3px!important;
+    border-radius:9px!important;
+    flex-direction:column!important;
+    gap:3px!important;
+    font-size:12px!important;
+    line-height:1!important;
+  }
+
+  .app-tool span{
+    display:block!important;
+    font-size:6px!important;
+    line-height:1!important;
+    letter-spacing:.08em!important;
+  }
+}
+
+@media(max-width:430px){
+  .topbar{
+    padding:10px 10px 9px!important;
+  }
+
+  .brand b{
+    font-size:16px!important;
+  }
+
+  .brand small{
+    font-size:6.5px!important;
+    letter-spacing:.105em!important;
+  }
+
+  .mask{
+    width:40px!important;
+    height:42px!important;
+  }
+
+  .app-tool{
+    height:40px!important;
+  }
+}
+
+
+
+/* =========================================================
+   DOOMBOT V14 — CLOUD SAVE
+   ========================================================= */
+.cloud-save-card{
+  border-color:#31553a!important;
+  background:radial-gradient(circle at 90% 0,rgba(127,255,135,.065),transparent 35%),#08100b!important
+}
+.cloud-status-line{
+  display:flex;align-items:center;gap:8px;margin:11px 0 8px;
+  border:1px solid #233d2a;border-radius:9px;background:#07100a;padding:9px 10px
+}
+.cloud-dot{width:8px;height:8px;border-radius:50%;background:#6c7a70;box-shadow:0 0 0 3px rgba(110,125,114,.08)}
+.cloud-status-line[data-state="online"] .cloud-dot{background:#70ff7b;box-shadow:0 0 14px rgba(112,255,123,.35)}
+.cloud-status-line[data-state="syncing"] .cloud-dot{background:#d8c370;animation:cloudPulse 1s ease infinite}
+.cloud-status-line[data-state="offline"] .cloud-dot,.cloud-status-line[data-state="error"] .cloud-dot{background:#ff7870}
+.cloud-status-copy b{display:block;font-size:9px;letter-spacing:.05em}
+.cloud-status-copy span{display:block;margin-top:2px;color:#718376;font-size:7px;line-height:1.4}
+.cloud-user-id{color:#68796d;font:700 7px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere;margin-top:7px}
+.cloud-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.cloud-actions button{
+  border:1px solid #31513a;border-radius:8px;background:#0b1710;color:#9dc1a4;
+  padding:8px 10px;font-size:7px;font-weight:900;letter-spacing:.07em
+}
+@keyframes cloudPulse{50%{opacity:.35;transform:scale(.7)}}
+
+
+/* V17 modules */
+.plot-module{border-color:#5a2b2b!important;background:linear-gradient(180deg,#160b0b,#090707)!important}.plot-module>i{color:#ff8d8d!important}.credits-module{border-color:#584b2f!important;background:linear-gradient(180deg,#151209,#090806)!important}.credits-module>i{color:#e6ce87!important}
+</style>
+<script>document.documentElement.classList.add('js');</script>
+<script>
+window.__doombotInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();
+  window.__doombotInstallPrompt=e;
+  window.dispatchEvent(new Event('doombot-install-ready'));
+});
+</script>
+
+<script id="doombot-launch-guard">
+(function(){
+  window.addEventListener('pageshow',function(){
+    if(document.body)document.body.classList.remove('modal-open','page-exit');
+  });
+  setTimeout(function(){
+    var w=document.querySelector('.welcome-screen');
+    if(w)w.remove();
+    if(document.body)document.body.classList.remove('modal-open','page-exit');
+  },4000);
+})();
+</script>
+<link rel="stylesheet" href="./v18-community.css?v=20.1">
+
+
+
+
+
+
+
+<style id="doombot-v201-viewport-tabs-style">
+html{min-height:100%!important}
+body.v13-page{transform:none!important;animation:none!important}
+body{padding-bottom:calc(82px + env(safe-area-inset-bottom))!important}
+#doombot-viewport-tabs{
+  position:fixed!important;
+  left:8px!important;right:8px!important;
+  bottom:calc(8px + env(safe-area-inset-bottom))!important;
+  height:58px!important;
+  z-index:2147483646!important;
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:3px!important;
+  box-sizing:border-box!important;
+  padding:5px!important;margin:0!important;
+  border:1px solid rgba(80,116,89,.42)!important;
+  border-radius:16px!important;
+  background:rgba(4,9,6,.975)!important;
+  -webkit-backdrop-filter:blur(20px)!important;
+  backdrop-filter:blur(20px)!important;
+  box-shadow:0 12px 40px rgba(0,0,0,.62)!important;
+  pointer-events:auto!important;
+  opacity:1!important;visibility:visible!important;
+  transform:none!important;-webkit-transform:none!important
+}
+#doombot-viewport-tabs a{
+  min-width:0!important;height:48px!important;
+  display:flex!important;flex-direction:column!important;
+  justify-content:center!important;align-items:center!important;
+  gap:3px!important;box-sizing:border-box!important;
+  border:0!important;border-radius:10px!important;
+  background:transparent!important;color:#67796c!important;
+  text-decoration:none!important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  -webkit-tap-highlight-color:transparent!important
+}
+#doombot-viewport-tabs a .db-tab-icon{display:block!important;font-size:16px!important;line-height:15px!important;font-weight:900!important}
+#doombot-viewport-tabs a .db-tab-label{display:block!important;font-size:6px!important;line-height:7px!important;font-weight:900!important;letter-spacing:.045em!important;white-space:nowrap!important}
+#doombot-viewport-tabs a.db-tab-active{
+  color:#91dc9a!important;
+  background:rgba(39,75,46,.36)!important;
+  box-shadow:inset 0 0 0 1px rgba(113,177,123,.19)!important
+}
+@media(max-width:380px){
+  #doombot-viewport-tabs{left:5px!important;right:5px!important;gap:2px!important;padding:4px!important}
+  #doombot-viewport-tabs a .db-tab-label{font-size:5.4px!important}
+}
+</style>
+
+
+<style id="doombot-v202-human-pass">
+/* DOOMBOT V20.2 // HUMAN PASS
+   Keeps the Doom-tech identity while removing common dashboard-template tells. */
+body:before{opacity:.15!important}
+.shell{border-radius:15px!important;box-shadow:0 18px 55px rgba(0,0,0,.24)!important}
+.topline{opacity:.42!important}
+.topbar{
+  background:rgba(6,11,8,.96)!important;
+  border-bottom-color:rgba(115,145,122,.10)!important
+}
+.brand b{letter-spacing:.17em!important}
+.brand small{letter-spacing:.08em!important}
+.chip{
+  border-radius:6px!important;
+  background:transparent!important;
+  border-color:rgba(115,145,122,.12)!important;
+  letter-spacing:.045em!important
+}
+.chip.live{box-shadow:none!important;text-shadow:none!important}
+.nav{
+  gap:2px!important;
+  background:rgba(5,9,6,.96)!important;
+  border-bottom-color:rgba(115,145,122,.08)!important
+}
+.nav a{
+  border:0!important;
+  border-radius:5px!important;
+  background:transparent!important;
+  padding:8px 10px!important;
+  letter-spacing:.035em!important
+}
+.nav a:hover,.nav a:focus,.nav a.active{
+  background:rgba(78,113,85,.08)!important;
+  box-shadow:none!important
+}
+.eyebrow{
+  letter-spacing:.11em!important;
+  text-transform:uppercase!important
+}
+.section-title{
+  letter-spacing:.06em!important;
+  border-bottom-color:rgba(115,145,122,.10)!important
+}
+.panel,.module-card,.creator-card,.social-card,.theory-card,.leak-card{
+  box-shadow:none!important
+}
+.btn,.filter2,.app-tool{
+  box-shadow:none!important;
+  border-radius:6px!important
+}
+footer{opacity:.70!important}
+@media(max-width:700px){
+  .chips .chip:not(.live):not(.gold){display:none!important}
+}
+</style>
+
+</head><body class="v12-page v13-page home-page v201-map-page">
+<div class="wrap">
+  <div class="shell">
+    <div class="topline"></div>
+    <header class="topbar">
+      <div class="brand">
+        <div class="mask" aria-hidden="true"></div>
+        <div>
+          <b>DOOMBOT</b>
+          <small>S.A.L.E.M. // CREATED BY 999SALEM</small>
+        </div>
+      </div>
+      <div class="chips">
+        <span class="chip live">● ONLINE</span>
+        <span class="chip gold">999SALEM</span>
+        <span class="chip">S.A.L.E.M.</span>
+      </div>
+    </header>
+    <nav class="nav v12-nav"><a class="" href="./index.html">HOME</a><a class="" href="./intel.html">INTEL</a><a class="" href="./leaks.html">LEAKS</a><a class="" href="./plot.html">PLOT</a><a class="" href="./credits.html">CREDITS</a><a class="" href="./theories.html">THEORIES</a><a class="" href="./warroom.html">WAR ROOM</a><a class="" href="./analyst.html">ANALYST</a><a class="active" href="./map.html">MAP</a><a class="" href="./about.html">ABOUT</a><a class="" href="./account.html">ACCOUNT</a><a class="" href="./settings.html">SETTINGS</a></nav>
+    <main class="main v201-map-main">
+
+<section class="v201-map-hero">
+  <a class="back-command" href="./index.html">← HOME</a>
+  <div class="eyebrow">DOOMBOT V20.2 // DOOMSDAY THEORY MAP</div>
+  <div class="v201-map-hero-grid">
+    <div>
+      <h1>THEORY MAP</h1>
+      <p>A visual map of how the current Doomsday theories connect — from Incursions and Loki to Franklin, Battleworld and Secret Wars.</p>
+    </div>
+    <div class="v201-map-state">
+      <span>CURRENT MAP</span>
+      <b>10 THEORIES CONNECTED</b>
+      <small>CORE → COLLISION → BATTLEWORLD → SECRET WARS</small>
+    </div>
+  </div>
+  <div class="v201-map-metrics">
+    <div><span>BACKBONE</span><b>89%</b><small>INCURSIONS</small></div>
+    <div><span>END STATE</span><b>85%</b><small>BATTLEWORLD</small></div>
+    <div><span>FINAL FORM</span><b>86%</b><small>GOD EMPEROR</small></div>
+    <div><span>POWER KEY</span><b>77%</b><small>FRANKLIN</small></div>
+  </div>
+</section>
+
+<section class="v201-map-toolbar" aria-label="Map controls">
+  <div>
+    <span>NAVIGATION</span>
+    <b>DRAG TO MOVE · TAP A NODE</b>
+  </div>
+  <div class="v201-map-buttons">
+    <button type="button" data-map-zoom="-1">−</button>
+    <button type="button" data-map-fit>FIT</button>
+    <button type="button" data-map-zoom="1">＋</button>
+  </div>
+</section>
+
+<section class="section" id="evidence">
+        <div class="section-title"><span>THEORY MAP // S.A.L.E.M. THEORY MAP</span></div>
+        <div class="home-map-actions">
+          <span>Tap a node to inspect the connection. Drag horizontally on mobile to move across the full model.</span>
+          <a class="btn" href="./theories.html">OPEN ALL THEORY FILES →</a>
+        </div>
+        <div class="map-title-row">
+          <div>
+            <b>999SALEM // CURRENT DOOMSDAY THEORY MAP</b><br>
+            <span>The model tracks how Doom, Incursions, Loki, Franklin, Avengers vs X-Men and Battleworld connect.</span>
+          </div>
+          <span>CORE → COLLISION → BATTLEWORLD → SECRET WARS</span>
+        </div>
+
+        <div class="board">
+          <div class="v201-map-canvas" id="mapCanvas">
+          <svg id="theoryMapSvg" viewBox="0 0 1080 650" role="img" aria-label="999Salem Doomsday theory constellation">
+            <!-- Core backbone -->
+            <path class="edge strong" d="M540 95 C540 150 430 160 390 225"/>
+            <path class="edge strong" d="M390 225 C410 300 470 330 510 390"/>
+            <path class="edge strong" d="M510 390 C530 455 555 480 575 540"/>
+            <path class="edge strong" d="M575 540 C610 555 645 555 675 540"/>
+
+            <!-- Doom identity / Stark branch -->
+            <path class="edge identity" d="M540 95 C445 85 355 90 270 125"/>
+            <path class="edge identity" d="M270 125 C250 195 245 250 260 315"/>
+            <path class="edge identity" d="M260 315 C345 330 435 345 510 390"/>
+
+            <!-- X-Men / universe conflict -->
+            <path class="edge conflict" d="M390 225 C305 235 235 255 170 300"/>
+            <path class="edge conflict" d="M390 225 C470 235 560 250 650 285"/>
+            <path class="edge conflict" d="M170 300 C285 355 390 380 510 390"/>
+            <path class="edge conflict" d="M650 285 C605 325 555 350 510 390"/>
+
+            <!-- Loki / Franklin power branch -->
+            <path class="edge power" d="M540 95 C650 110 745 140 825 190"/>
+            <path class="edge power" d="M825 190 C760 260 700 325 650 390"/>
+            <path class="edge power" d="M650 390 C620 445 600 490 575 540"/>
+            <path class="edge power" d="M540 95 C665 75 775 75 900 115"/>
+            <path class="edge power" d="M900 115 C845 225 770 315 650 390"/>
+
+            <!-- Doom savior / God Emperor -->
+            <path class="edge theory" d="M540 95 C570 185 565 260 550 315"/>
+            <path class="edge theory" d="M550 315 C555 400 565 470 575 540"/>
+            <path class="edge theory" d="M575 540 C505 555 445 565 385 555"/>
+
+            <!-- Core nodes -->
+            <a class="map-node-link" href="./theories.html#theory-doom-savior" data-node="doom">
+              <g class="node core" transform="translate(540 95)">
+                <circle r="62"></circle><text text-anchor="middle" y="-4">DOCTOR DOOM</text><text class="sub" text-anchor="middle" y="14">CENTER OF EVERYTHING</text>
+              </g>
+            </a>
+
+            <a class="map-node-link" href="./theories.html#theory-incursions" data-node="incursions">
+              <g class="node" transform="translate(390 225)">
+                <circle r="52"></circle><text text-anchor="middle" y="-3">INCURSIONS</text><text class="sub" text-anchor="middle" y="14">89% THEORY</text>
+              </g>
+            </a>
+
+            <g class="node" transform="translate(510 390)">
+              <circle r="56"></circle><text text-anchor="middle" y="-3">MULTIVERSE</text><text class="sub" text-anchor="middle" y="14">COLLAPSE</text>
+            </g>
+
+            <a class="map-node-link" href="./theories.html#theory-battleworld" data-node="battleworld">
+              <g class="node leak-node" transform="translate(575 540)">
+                <circle r="57"></circle><text text-anchor="middle" y="-3">BATTLEWORLD</text><text class="sub" text-anchor="middle" y="14">85% THEORY</text>
+              </g>
+            </a>
+
+            <g class="node core" transform="translate(675 540)">
+              <circle r="57"></circle><text text-anchor="middle" y="-3">SECRET WARS</text><text class="sub" text-anchor="middle" y="14">DESTINATION</text>
+            </g>
+
+            <!-- Identity branch -->
+            <a class="map-node-link" href="./theories.html#theory-face" data-node="face">
+              <g class="node theory-node" transform="translate(270 125)">
+                <circle r="48"></circle><text text-anchor="middle" y="-3">RDJ FACE</text><text class="sub" text-anchor="middle" y="14">PSYCHOLOGICAL</text>
+              </g>
+            </a>
+
+            <a class="map-node-link" href="./theories.html#theory-rdj-stark" data-node="stark">
+              <g class="node theory-node" transform="translate(260 315)">
+                <circle r="53"></circle><text text-anchor="middle" y="-5">TONY STARK</text><text class="sub" text-anchor="middle" y="13">RETURN THEORY</text>
+              </g>
+            </a>
+
+            <!-- Conflict branch -->
+            <g class="node leak-node" transform="translate(170 300)">
+              <circle r="50"></circle><text text-anchor="middle" y="-3">X-MEN</text><text class="sub" text-anchor="middle" y="14">LEGACY EARTH</text>
+            </g>
+
+            <a class="map-node-link" href="./theories.html#theory-avx" data-node="avx">
+              <g class="node theory-node" transform="translate(650 285)">
+                <circle r="54"></circle><text text-anchor="middle" y="-5">AVENGERS</text><text class="sub" text-anchor="middle" y="13">vs X-MEN</text>
+              </g>
+            </a>
+
+            <!-- Power branch -->
+            <a class="map-node-link" href="./theories.html#theory-loki" data-node="loki">
+              <g class="node theory-node" transform="translate(825 190)">
+                <circle r="50"></circle><text text-anchor="middle" y="-3">LOKI</text><text class="sub" text-anchor="middle" y="14">MULTIVERSE KEY</text>
+              </g>
+            </a>
+
+            <a class="map-node-link" href="./theories.html#theory-franklin" data-node="franklin">
+              <g class="node theory-node" transform="translate(900 115)">
+                <circle r="52"></circle><text text-anchor="middle" y="-4">FRANKLIN</text><text class="sub" text-anchor="middle" y="13">REALITY POWER</text>
+              </g>
+            </a>
+
+            <g class="node core" transform="translate(650 390)">
+              <circle r="52"></circle><text text-anchor="middle" y="-3">POWER</text><text class="sub" text-anchor="middle" y="14">TO REBUILD</text>
+            </g>
+
+            <!-- Moral / final form -->
+            <a class="map-node-link" href="./theories.html#theory-doom-savior" data-node="savior">
+              <g class="node theory-node" transform="translate(550 315)">
+                <circle r="48"></circle><text text-anchor="middle" y="-4">DOOM</text><text class="sub" text-anchor="middle" y="13">“SAVIOR”</text>
+              </g>
+            </a>
+
+            <a class="map-node-link" href="./theories.html#theory-god-emperor" data-node="god-emperor">
+              <g class="node core" transform="translate(385 555)">
+                <circle r="54"></circle><text text-anchor="middle" y="-4">GOD EMPEROR</text><text class="sub" text-anchor="middle" y="13">FINAL REVEAL</text>
+              </g>
+            </a>
+          </svg>
+          </div>
+
+          <div class="board-legend">
+            <span class="legend">GREEN = STORY BACKBONE</span>
+            <span class="legend">PURPLE = MY THEORY / IDENTITY</span>
+            <span class="legend">RED = HERO CONFLICT / LEAK DEPENDENT</span>
+            <span class="legend">GOLD = POWER / BATTLEWORLD MECHANISM</span>
+          </div>
+
+
+          <div class="map-inspector js-only">
+            <div class="inspect-summary">
+              <div class="eyebrow" id="inspectClass">Core Node</div>
+              <h3 id="inspectTitle">Doctor Doom</h3>
+              <p id="inspectText">The highest-density node in my current model. Almost every route to Battleworld passes through Doom.</p>
+              <div class="inspect-stats">
+                <div class="inspect-stat"><span>CONFIDENCE</span><b id="inspectConfidence">94%</b></div>
+                <div class="inspect-stat"><span>LINKS</span><b id="inspectLinks">7</b></div>
+                <div class="inspect-stat"><span>STATUS</span><b id="inspectStatus">ANCHOR</b></div>
+              </div>
+              <a class="inspect-link" id="inspectLink" href="./theories.html#theory-doom-savior">OPEN CONNECTED THEORY FILE →</a>
+            </div>
+            <div class="inspect-detail">
+              <div class="eyebrow">S.A.L.E.M. Read</div>
+              <p id="inspectAnalysis" style="margin-top:7px">
+                Doom is not just another character on this board — he is the mechanism connecting the identity mystery,
+                the Incursion crisis, the power needed to rebuild reality and the eventual God Emperor endpoint.
+              </p>
+            </div>
+          </div>
+
+          <div class="map-rail">
+            <a href="./theories.html#theory-rdj-stark">RDJ → TONY</a>
+            <a href="./theories.html#theory-avx">AVENGERS vs X-MEN</a>
+            <a href="./theories.html#theory-loki">LOKI POWER</a>
+            <a href="./theories.html#theory-franklin">FRANKLIN KEY</a>
+            <a href="./theories.html#theory-god-emperor">GOD EMPEROR ENDING</a>
+          </div>
+        </div>
+      </section>
+</main>
+    <footer>
+      <span>DOOMBOT // POWERED BY S.A.L.E.M.</span>
+      <span>CREATED & CURATED BY 999SALEM // BUILD 20.2</span>
+    </footer>
+  </div>
+</div>
+<nav class="bottom-nav" aria-label="Mobile navigation"><a class="active" href="./index.html"><b>⌂</b><span>HOME</span></a><a class="" href="./leaks.html"><b>▣</b><span>LEAKS</span></a><a class="" href="./warroom.html"><b>◈</b><span>WAR ROOM</span></a><a class="" href="./theories.html"><b>◇</b><span>THEORIES</span></a><a class="" href="./account.html"><b>◎</b><span>ACCOUNT</span></a></nav>
+<script id="doombot-v13-app">
+(function(){
+  const $=(s,r=document)=>r.querySelector(s);
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const toast=document.createElement("div");
+  toast.className="toast"; toast.setAttribute("role","status"); toast.setAttribute("aria-live","polite");
+  document.body.appendChild(toast);
+  function showToast(msg){toast.textContent=msg;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1800)}
+  function safeGet(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:v}catch(e){return fallback}}
+  function safeSet(key,val){try{localStorage.setItem(key,val);window.DOOMBOT_CLOUD_TOUCH?.(key);return true}catch(e){return false}}
+  function safeJSON(key,fallback){try{return JSON.parse(safeGet(key,""))||fallback}catch(e){return fallback}}
+
+  // Live theatrical countdowns.
+  function pad2(n){ return String(Math.max(0,n)).padStart(2,"0"); }
+  function partsUntil(target){
+    const ms=Math.max(0,target-Date.now());
+    const total=Math.floor(ms/1000);
+    return {
+      totalMs:ms,
+      days:Math.floor(total/86400),
+      hours:Math.floor((total%86400)/3600),
+      minutes:Math.floor((total%3600)/60),
+      seconds:total%60
+    };
+  }
+  function paintCountdown(prefix,target){
+    const p=partsUntil(target);
+    const days=$("#"+prefix+"Days"),hours=$("#"+prefix+"Hours"),minutes=$("#"+prefix+"Minutes"),seconds=$("#"+prefix+"Seconds");
+    if(days) days.textContent=String(p.days);
+    if(hours) hours.textContent=pad2(p.hours);
+    if(minutes) minutes.textContent=pad2(p.minutes);
+    if(seconds) seconds.textContent=pad2(p.seconds);
+    return p;
+  }
+  function updateMovieCountdowns(){
+    // Local midnight keeps the counter intuitive for friends opening the site in their own timezone.
+    const doomsday=new Date(2026,11,18,0,0,0);
+    const encore=new Date(2026,8,25,0,0,0);
+    const d=paintCountdown("doomsday",doomsday);
+    paintCountdown("encore",encore);
+
+    // Progress from the start of 2026 to release, purely as a visual road-to-release meter.
+    const start=new Date(2026,0,1,0,0,0).getTime();
+    const end=doomsday.getTime();
+    const now=Math.min(end,Math.max(start,Date.now()));
+    const pct=Math.max(0,Math.min(100,((now-start)/(end-start))*100));
+    const bar=$("#doomsdayProgress");
+    const label=$("#doomsdayProgressText");
+    if(bar) bar.style.width=pct.toFixed(1)+"%";
+    if(label){
+      label.textContent=d.totalMs<=0?"DOOMSDAY HAS ARRIVED":(d.days<=30?"FINAL MONTH":(d.days<=100?"FINAL STRETCH":"APPROACHING"));
+    }
+  }
+  updateMovieCountdowns();
+  setInterval(updateMovieCountdowns,1000);
+
+
+  // Confidence desk.
+  const tier=$("#intelTier"), cor=$("#intelCorroboration"), visual=$("#intelVisual"), fit=$("#intelFit");
+  function signed(n){n=Number(n)||0;return (n>0?"+":"")+n}
+  function calcScore(){
+    const a=Number(tier?.value||0), b=Number(cor?.value||0), c=Number(visual?.value||0), d=Number(fit?.value||0);
+    const score=Math.max(1,Math.min(100,Math.round(a+b+c+d)));
+    if($("#scoreNumber")) $("#scoreNumber").innerHTML=score+"<span>%</span>";
+    if($("#scoreFill")) $("#scoreFill").style.width=score+"%";
+    if($("#reasonTier")) $("#reasonTier").textContent=a;
+    if($("#reasonCor")) $("#reasonCor").textContent=signed(b);
+    if($("#reasonVisual")) $("#reasonVisual").textContent=signed(c);
+    if($("#reasonFit")) $("#reasonFit").textContent=signed(d);
+    return score;
+  }
+  [tier,cor,visual,fit].filter(Boolean).forEach(el=>el.addEventListener("change",calcScore));
+  $("#scoreIntel")?.addEventListener("click",()=>{const n=calcScore();showToast("S.A.L.E.M. confidence: "+n+"%")});
+  calcScore();
+
+  // Local intel queue.
+  const queueKey="salem-doomsday-intel-queue-v1";
+  let queue=safeJSON(queueKey,[]);
+  function renderQueue(){
+    const box=$("#intelQueue"); if(!box)return;
+    $("#queueCount").textContent=queue.length+" SAVED";
+    if(!queue.length){box.innerHTML='<div class="queue-empty">Nothing saved yet. Grade a source and add it here.</div>';return}
+    box.innerHTML=queue.slice().reverse().map((item,revIndex)=>{
+      const realIndex=queue.length-1-revIndex;
+      const url=item.url?'<a class="inspect-link" target="_blank" rel="noopener" href="'+item.url.replace(/"/g,"&quot;")+'">OPEN SOURCE ↗</a>':"";
+      return '<div class="queue-item"><div class="queue-item-head"><div><b>'+escapeHtml(item.title)+'</b><br><small>'+escapeHtml(item.tierLabel)+' // '+item.score+'%</small></div><button class="filter2 queue-delete" data-delete="'+realIndex+'" type="button">REMOVE</button></div><p>'+escapeHtml(item.notes||"No notes yet.")+'</p>'+url+'</div>';
+    }).join("");
+    $$(".queue-delete",box).forEach(b=>b.addEventListener("click",()=>{
+      queue.splice(Number(b.dataset.delete),1);safeSet(queueKey,JSON.stringify(queue));renderQueue();showToast("Intel removed");
+    }));
+  }
+  function escapeHtml(v){return String(v||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+  $("#intelForm")?.addEventListener("submit",e=>{
+    e.preventDefault();
+    const title=$("#intelTitle").value.trim(); if(!title){showToast("Add a claim/headline first");return}
+    const item={
+      title, url:$("#intelUrl").value.trim(), notes:$("#intelNotes").value.trim(),
+      tierLabel:$("#intelTier").options[$("#intelTier").selectedIndex].text,
+      score:calcScore(), saved:new Date().toISOString()
+    };
+    queue.push(item); if(queue.length>40)queue=queue.slice(-40);
+    safeSet(queueKey,JSON.stringify(queue));renderQueue();e.currentTarget.reset();
+    $("#intelTier").value="70";$("#intelCorroboration").value="0";$("#intelVisual").value="0";$("#intelFit").value="2";calcScore();
+    showToast("Saved to local intel queue");
+  });
+  $("#clearQueue")?.addEventListener("click",()=>{queue=[];safeSet(queueKey,"[]");renderQueue();showToast("Intel queue cleared")});
+  renderQueue();
+
+  // Theory filtering / locked picks / private notes.
+  let theoryFilter="all";
+  const theorySearch=$("#theorySearch");
+  function applyTheories(){
+    const q=(theorySearch?.value||"").toLowerCase().trim();
+    $$(".theory-card").forEach(card=>{
+      const type=card.dataset.theoryType||"";
+      const key=card.dataset.key||"";
+      const locked=safeGet("salem-lock-"+key,"0")==="1";
+      const favorite=safeGet("doombot-fav-theory-"+key,"0")==="1";
+      const custom=card.dataset.custom==="1";
+      const typeOK=theoryFilter==="all"||type===theoryFilter||(theoryFilter==="locked"&&locked)||(theoryFilter==="favorites"&&favorite)||(theoryFilter==="custom"&&custom);
+      const searchOK=!q||card.innerText.toLowerCase().includes(q);
+      card.classList.toggle("hidden",!(typeOK&&searchOK));
+    });
+  }
+  $$(".theory-filter").forEach(btn=>btn.addEventListener("click",()=>{
+    $$(".theory-filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");theoryFilter=btn.dataset.theoryFilter;applyTheories();
+  }));
+  theorySearch?.addEventListener("input",applyTheories);
+  $$(".lock-btn").forEach(btn=>{
+    const key=btn.dataset.lock, locked=safeGet("salem-lock-"+key,"0")==="1";
+    btn.classList.toggle("locked",locked);btn.textContent=locked?"PREDICTION LOCKED ✓":"LOCK PREDICTION";
+    btn.addEventListener("click",()=>{
+      const next=safeGet("salem-lock-"+key,"0")!=="1";safeSet("salem-lock-"+key,next?"1":"0");
+      btn.classList.toggle("locked",next);btn.textContent=next?"PREDICTION LOCKED ✓":"LOCK PREDICTION";
+      showToast(next?"Prediction locked":"Prediction unlocked");applyTheories();
+    });
+  });
+  $$(".note-toggle").forEach(btn=>btn.addEventListener("click",()=>{
+    const p=$('[data-note-panel="'+btn.dataset.noteToggle+'"]');p?.classList.toggle("show");
+  }));
+  $$(".theory-note").forEach(area=>{area.value=safeGet("salem-note-"+area.dataset.note,"")});
+  $$(".save-note").forEach(btn=>btn.addEventListener("click",()=>{
+    const key=btn.dataset.noteSave,area=$('[data-note="'+key+'"]');safeSet("salem-note-"+key,area?.value||"");showToast("Private theory note saved");
+  }));
+
+  // Leak gallery filters.
+  let leakFilter="all"; const leakSearch=$("#leakSearch");
+  function applyLeaks(){
+    const q=(leakSearch?.value||"").toLowerCase().trim();
+    $$(".leak-card").forEach(card=>{
+      const type=card.dataset.leakType||"";
+      const favorite=safeGet("doombot-fav-leak-"+(card.dataset.id||""),"0")==="1";
+      const filterOK=leakFilter==="all"||type===leakFilter||(leakFilter==="favorites"&&favorite);
+      const ok=filterOK&&(!q||card.innerText.toLowerCase().includes(q));
+      card.classList.toggle("hidden",!ok);
+    });
+  }
+  $$(".leak-filter").forEach(btn=>btn.addEventListener("click",()=>{
+    $$(".leak-filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");leakFilter=btn.dataset.leakFilter;applyLeaks();
+  }));
+  leakSearch?.addEventListener("input",applyLeaks);
+
+  // Evidence board inspector: links still work normally without JS. With JS, first tap inspects; "open file" stays available.
+  const nodeInfo={
+    doom:["Core Node","Doctor Doom","94%","7","ANCHOR","./theories.html#theory-doom-savior","Almost every route to Battleworld passes through Doom: identity, Incursions, multiversal power and the final God Emperor state."],
+    incursions:["Structure","Incursions","89%","5","CORE","./theories.html#theory-incursions","This is the cleanest backbone for getting Avengers, X-Men and multiple realities into direct conflict without inventing a completely new mechanism."],
+    battleworld:["Endgame","Battleworld","85%","6","LIKELY","./theories.html#theory-battleworld","Battleworld solves the transition problem between a catastrophic Doomsday ending and a Secret Wars movie that can immediately begin inside a broken reality."],
+    face:["Identity","RDJ Face","73%","3","THEORY","./theories.html#theory-face","Even if Victor is not a Tony variant, the face can function as psychological warfare against heroes who associate it with sacrifice and trust."],
+    stark:["Identity","Tony Stark Return","76%","4","THEORY","./theories.html#theory-rdj-stark","The casting itself provides cover for RDJ to be present during production. The missing piece remains independent evidence that Tony himself returns."],
+    avx:["Conflict","Avengers vs X-Men","84%","4","STRONG","./theories.html#theory-avx","An Incursion creates a conflict where both sides can be heroic and still believe the other Earth has to die. That gives the crossover emotional stakes beyond cameos."],
+    loki:["Power Node","Loki","71%","4","ACTIVE","./theories.html#theory-loki","Loki is currently positioned as a living multiversal stabilizer. Any Doom/Battleworld plan logically needs to explain him, bypass him or use what he controls."],
+    franklin:["Power Node","Franklin Richards","77%","4","ACTIVE","./theories.html#theory-franklin","Franklin is an elegant MCU substitute or supplement for the raw reality-rebuilding power Doom needs once the multiverse is already collapsing."],
+    savior:["Moral Theory","Doom the Savior","78%","5","ACTIVE","./theories.html#theory-doom-savior","The most Doom-like version of the story is that he identifies the catastrophe correctly and then uses that truth to justify an authoritarian solution only he is willing to execute."],
+    "god-emperor":["Final State","God Emperor Doom","86%","5","ENDGAME","./theories.html#theory-god-emperor","Ending Doomsday after Doom has already won lets Secret Wars begin from the comic's strongest image: heroes waking inside a reality that belongs to him."]
+  };
+  $$(".map-node-link[data-node]").forEach(link=>link.addEventListener("click",e=>{
+    if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches)e.preventDefault();
+    const d=nodeInfo[link.dataset.node];if(!d)return;
+    $("#inspectClass").textContent=d[0];$("#inspectTitle").textContent=d[1];$("#inspectConfidence").textContent=d[2];
+    $("#inspectLinks").textContent=d[3];$("#inspectStatus").textContent=d[4];$("#inspectLink").href=d[5];$("#inspectAnalysis").textContent=d[6];
+    $("#inspectText").textContent="Selected from the theory constellation. Follow the connected theory file for my full take.";
+    showToast("Inspecting "+d[1]);
+  }));
+})();
+
+
+// ---------- Repo live-intel data layer ----------
+(function(){
+  const grid=document.querySelector('#liveIntelGrid');
+  if(!grid) return;
+  const updated=document.querySelector('#liveUpdated');
+  const count=document.querySelector('#liveCount');
+  let liveItems=[],liveFilter='all';
+  function esc(v){return String(v||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+  function cardClass(t){return t==='S'?'official':(t==='A'?'trade':(t==='B'?'theory':'leak'))}
+  function tagClass(t){return t==='S'?'green':(t==='A'?'cyan':(t==='B'?'purple':'red'))}
+  function render(){
+    const items=liveFilter==='all'?liveItems:liveItems.filter(x=>x.tier===liveFilter);
+    grid.innerHTML=items.length?items.map(item=>{
+      const link=item.url?'<a class="source-link" href="'+esc(item.url)+'" target="_blank" rel="noopener">OPEN SOURCE ↗</a>':'';
+      return '<article class="intel '+cardClass(item.tier)+'" data-intel-id="'+esc(item.id||item.title)+'"><div class="tags"><span class="tag '+tagClass(item.tier)+'">TIER '+esc(item.tier)+' // '+esc(item.source||'SOURCE')+'</span>'
+        +(item.kind?'<span class="tag">'+esc(item.kind)+'</span>':'')+'</div><h3>'+esc(item.title)+'</h3><p>'+esc(item.summary||'')+'</p>'
+        +'<div class="analysis"><b>S.A.L.E.M.:</b> '+esc(item.analysis||'Review the source before promoting this into a theory.')+'</div>'
+        +'<div class="leak-meta"><span>'+esc(item.published||'DATE UNKNOWN')+'</span><span>'+esc(item.confidence||0)+'% CONFIDENCE</span></div>'+link+'</article>';
+    }).join(''):'<article class="intel"><h3>No matching live intel</h3><p>Try another tier.</p></article>';
+    if(count)count.textContent=items.length+' ITEM'+(items.length===1?'':'S');
+  }
+  async function load(){
+    grid.classList.add('live-fetching');
+    try{
+      const res=await fetch('./live-intel.json?ts='+Date.now(),{cache:'no-store'});
+      if(!res.ok)throw new Error();
+      const data=await res.json();liveItems=Array.isArray(data.items)?data.items:[];
+      if(updated)updated.textContent='UPDATED // '+(data.updatedAt||'UNKNOWN');render();
+    }catch(e){if(updated)updated.textContent='LIVE DATA UNAVAILABLE // STATIC FILES STILL AVAILABLE'}
+    finally{grid.classList.remove('live-fetching')}
+  }
+  document.querySelectorAll('.live-filter').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.live-filter').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');liveFilter=btn.dataset.liveFilter||'all';render();
+  }));
+  document.querySelector('#reloadLive')?.addEventListener('click',load);
+  load();
+})();
+
+
+// ---------- V11.3/V12 resilient leak image loader ----------
+(function(){
+  const $=(s,r=document)=>r.querySelector(s);
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const images=$$(".db-image img[data-remote]");
+  if(!images.length)return;
+  let loadedRemote=0;
+  function proxyUrl(remote){return "https://images.weserv.nl/?url="+encodeURIComponent(remote)+"&w=1200&h=750&fit=cover&output=jpg&q=82"}
+  function pagePreviewUrl(source){return "https://api.microlink.io/?url="+encodeURIComponent(source)+"&embed=image.url"}
+  function pageSnapshotUrl(source){return "https://api.microlink.io/?url="+encodeURIComponent(source)+"&screenshot=true&embed=screenshot.url"}
+  images.forEach(img=>{
+    const wrap=img.parentElement,card=img.closest(".leak-card"),badge=wrap.querySelector("[data-image-status]");
+    const source=(card?.querySelector(".source-link")?.href||wrap.href||"").trim();
+    img.dataset.sourcePage=source;
+    img.addEventListener("load",()=>{
+      wrap.classList.add("image-ready");
+      const stage=Number(img.dataset.fallbackStage||1);loadedRemote++;
+      if(badge)badge.textContent=stage===1?"IMAGE PROXY":stage===2?"REMOTE SOURCE":stage===3?"SOURCE PREVIEW":"SOURCE SNAPSHOT";
+      const mode=$("#imageMode");if(mode)mode.textContent="MULTI-SOURCE IMAGE MODE";
+    });
+    img.addEventListener("error",()=>{
+      const stage=Number(img.dataset.fallbackStage||1),remote=img.dataset.remote||"",sourcePage=img.dataset.sourcePage||"";
+      if(stage===1&&remote){img.dataset.fallbackStage="2";img.src=remote;return}
+      if(stage===2&&sourcePage){img.dataset.fallbackStage="3";img.src=pagePreviewUrl(sourcePage);return}
+      if(stage===3&&sourcePage){img.dataset.fallbackStage="4";img.src=pageSnapshotUrl(sourcePage);return}
+      wrap.classList.add("image-ready");img.remove();if(badge)badge.textContent="SOURCE CARD";
+      if(!wrap.querySelector(".image-fallback-v11")){
+        const f=document.createElement("div");f.className="image-fallback-v11 compact-fallback";
+        f.innerHTML="<div><b>VISUAL HOST BLOCKED</b><br><br>Tap OPEN SOURCE to view it directly.</div>";
+        wrap.insertBefore(f,wrap.firstChild);
+      }
+    });
+  });
+
+  const gallery=$("#leakGallery");
+  function refreshCount(){
+    if(!gallery)return;
+    const visible=$$(".leak-card",gallery).filter(c=>!c.classList.contains("hidden")).length;
+    const el=$("#leakVisibleCount");if(el)el.textContent=visible+" FILES VISIBLE";
+  }
+  $$(".leak-sort").forEach(btn=>btn.addEventListener("click",()=>{
+    $$(".leak-sort").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
+    if(!gallery)return;
+    const cards=$$(".leak-card",gallery);
+    if(btn.dataset.leakSort==="confidence")cards.sort((a,b)=>Number(b.dataset.confidence||0)-Number(a.dataset.confidence||0));
+    else cards.sort((a,b)=>Number(a.dataset.order||0)-Number(b.dataset.order||0));
+    cards.forEach(c=>gallery.appendChild(c));refreshCount();
+  }));
+  const observer=new MutationObserver(refreshCount);
+  if(gallery)observer.observe(gallery,{attributes:true,subtree:true,attributeFilter:["class"]});
+  refreshCount();
+})();
+
+
+// =========================================================
+// DOOMBOT V13.1 — STABILITY RECOVERY
+// =========================================================
+(function(){
+  const recover=()=>{
+    try{
+      document.body?.classList.remove('modal-open','page-exit');
+      document.querySelectorAll('.welcome-screen.closing').forEach(x=>x.remove());
+    }catch(e){}
+  };
+  window.addEventListener('pageshow',recover);
+  window.addEventListener('unhandledrejection',recover);
+  window.addEventListener('error',e=>{if(e.error)recover()});
+})();
+
+// =========================================================
+// DOOMBOT V13 — APP SHELL
+// =========================================================
+(function(){
+  const THEORY_REGISTRY=[{"id": "rdj-stark", "anchor": "theory-rdj-stark", "title": "RDJ Doom is cover for Tony Stark returning", "sig": "76:RDJ Doom is cover for Tony Stark returning"}, {"id": "battleworld", "anchor": "theory-battleworld", "title": "Doomsday ends with Battleworld", "sig": "85:Doomsday ends with Battleworld"}, {"id": "incursions", "anchor": "theory-incursions", "title": "Incursions are the actual backbone of the movie", "sig": "89:Incursions are the actual backbone of the movie"}, {"id": "avx", "anchor": "theory-avx", "title": "The giant “team-up” scene is actually heroes fighting heroes", "sig": "84:The giant “team-up” scene is actually heroes fighting heroes"}, {"id": "doom-savior", "anchor": "theory-doom-savior", "title": "Doom is right about the problem — and monstrous about the solution", "sig": "78:Doom is right about the problem — and monstrous about the solution"}, {"id": "loki", "anchor": "theory-loki", "title": "Doom needs Loki because Loki is literally holding the multiverse together", "sig": "71:Doom needs Loki because Loki is literally holding the multiverse together"}, {"id": "franklin", "anchor": "theory-franklin", "title": "Franklin Richards is the missing “battery” that makes Battleworld possible", "sig": "77:Franklin Richards is the missing “battery” that makes Battleworld possible"}, {"id": "face", "anchor": "theory-face", "title": "Doom looking like Tony is a weapon even if he is NOT a Tony variant", "sig": "73:Doom looking like Tony is a weapon even if he is NOT a Tony variant"}, {"id": "god-emperor", "anchor": "theory-god-emperor", "title": "The last image of Doomsday is God Emperor Doom already on the throne", "sig": "86:The last image of Doomsday is God Emperor Doom already on the throne"}];
+  const $=(s,r=document)=>r.querySelector(s);
+  const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const get=(k,f=null)=>{try{const v=localStorage.getItem(k);return v===null?f:v}catch(e){return f}};
+  const set=(k,v)=>{try{localStorage.setItem(k,v);window.DOOMBOT_CLOUD_TOUCH?.(k);return true}catch(e){return false}};
+  const jget=(k,f)=>{try{return JSON.parse(get(k,""))||f}catch(e){return f}};
+  const isStandalone=()=>window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+  document.body.classList.remove('modal-open','page-exit');
+  const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const slug=s=>String(s||'file').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,64)||'file';
+
+  // ---------- Settings ----------
+  const SETTINGS_KEY='doombot-settings-v1';
+  const defaults={reduceMotion:false,compactLeaks:false,hideDisputed:false,haptics:true};
+  function settings(){return Object.assign({},defaults,jget(SETTINGS_KEY,{}))}
+  function saveSettings(next){set(SETTINGS_KEY,JSON.stringify(next));applySettings()}
+  function applySettings(){
+    const s=settings();
+    document.documentElement.classList.toggle('reduce-motion',!!s.reduceMotion);
+    document.body.classList.toggle('compact-leaks',!!s.compactLeaks);
+    document.body.classList.toggle('hide-disputed',!!s.hideDisputed);
+    $$('.leak-card[data-confidence]').forEach(card=>{
+      card.dataset.disputed=Number(card.dataset.confidence||100)<50?'true':'false';
+    });
+    $$('[data-setting]').forEach(input=>{input.checked=!!s[input.dataset.setting]});
+  }
+  applySettings();
+
+  // ---------- Global toast ----------
+  let shellToast=$('#appShellToast');
+  if(!shellToast){
+    shellToast=document.createElement('div');shellToast.id='appShellToast';shellToast.className='app-shell-toast';
+    shellToast.setAttribute('role','status');shellToast.setAttribute('aria-live','polite');document.body.appendChild(shellToast);
+  }
+  let toastTimer;
+  function toast(msg){
+    shellToast.textContent=msg;shellToast.classList.add('show');clearTimeout(toastTimer);
+    toastTimer=setTimeout(()=>shellToast.classList.remove('show'),1800);
+  }
+
+  // ---------- Haptic-feeling interactions ----------
+  document.addEventListener('click',e=>{
+    const target=e.target.closest('button,.btn,.module-card,.bottom-nav a,.map-node-link,.app-tool');
+    if(!target)return;
+    if(settings().haptics&&navigator.vibrate)navigator.vibrate(8);
+  },{passive:true});
+
+  // ---------- Utility buttons in header ----------
+  function injectAppTools(){
+    const top=$('.topbar');if(!top||$('.app-tools'))return;
+    const tools=document.createElement('div');tools.className='app-tools';
+    tools.innerHTML=`
+      <button class="app-tool" type="button" data-open-watchlist aria-label="Open watchlist">☆<span>WATCH</span></button>
+      <button class="app-tool" type="button" data-share-app aria-label="Share DOOMBOT">↗<span>SHARE</span></button>
+      <button class="app-tool" type="button" data-open-help aria-label="Help">?<span>HELP</span></button>
+      <a class="app-tool v201-account-tool" href="./account.html" aria-label="Account">◎<span>ACCOUNT</span></a>
+      <a class="app-tool" href="./settings.html" aria-label="Settings">⚙<span>SETTINGS</span></a>`;
+    top.appendChild(tools);
+  }
+  injectAppTools();
+
+  // ---------- Better back navigation ----------
+  $$('.back-command').forEach(back=>{
+    try{
+      const ref=document.referrer?new URL(document.referrer):null;
+      if(ref&&ref.origin===location.origin&&ref.pathname!==location.pathname&&history.length>1){
+        back.textContent='← BACK';
+        back.addEventListener('click',e=>{e.preventDefault();history.back()});
+      }
+    }catch(e){}
+  });
+
+  // ---------- Share ----------
+  async function sharePayload(title,url,text=''){
+    try{
+      if(navigator.share){await navigator.share({title,text,url});return}
+      if(navigator.clipboard){await navigator.clipboard.writeText(url);toast('Link copied');return}
+    }catch(e){if(e?.name==='AbortError')return}
+    try{prompt('Copy this link:',url)}catch(e){}
+  }
+  $('[data-share-app]')?.addEventListener('click',()=>sharePayload('DOOMBOT — Avengers: Doomsday Intelligence',location.origin+location.pathname.replace(/[^/]*$/,'')+'index.html','Built by 999SALEM'));
+
+  // ---------- Favorites / watchlist ----------
+  const WATCH_KEY='doombot-watchlist-v1';
+  function watchlist(){return jget(WATCH_KEY,{})}
+  function putFavorite(type,key,title,url,on){
+    const all=watchlist(),id=type+':'+key;
+    if(on)all[id]={type,key,title,url,added:Date.now()};else delete all[id];
+    set(WATCH_KEY,JSON.stringify(all));
+    set('doombot-fav-'+type+'-'+key,on?'1':'0');
+    refreshFavoriteButtons();renderWatchlist();
+  }
+  function isFavorite(type,key){return get('doombot-fav-'+type+'-'+key,'0')==='1'}
+  function cardInfo(card){
+    let type='file',key=card.id||slug(card.querySelector('h3')?.textContent),title=card.querySelector('h3')?.textContent?.trim()||'DOOMBOT file';
+    if(card.classList.contains('theory-card')){type='theory';key=card.dataset.key||key}
+    else if(card.classList.contains('leak-card')){type='leak';key=card.dataset.id||key}
+    else if(card.classList.contains('intel')){type='intel';key=slug(card.dataset.intelId||title)}
+    if(!card.id)card.id=(type==='theory'?'theory-':type+'-')+slug(key);
+    const url=location.href.split('#')[0]+'#'+card.id;
+    return {type,key,title,url};
+  }
+  function decorateCard(card){
+    if(card.dataset.appDecorated==='1')return;
+    if(!card.querySelector('h3'))return;
+    card.dataset.appDecorated='1';
+    const info=cardInfo(card);
+    const actions=document.createElement('div');actions.className='app-card-actions js-only';
+    actions.innerHTML=`<button type="button" class="mini-app-action favorite-action" aria-label="Favorite this file">☆ FAVORITE</button><button type="button" class="mini-app-action share-action" aria-label="Share this file">↗ SHARE FILE</button>`;
+    const host=card.querySelector('.leak-body')||card;
+    host.appendChild(actions);
+    actions.querySelector('.favorite-action').addEventListener('click',()=>{
+      const next=!isFavorite(info.type,info.key);putFavorite(info.type,info.key,info.title,info.url,next);
+      toast(next?'Added to watchlist':'Removed from watchlist');
+    });
+    actions.querySelector('.share-action').addEventListener('click',()=>sharePayload(info.title,info.url,'DOOMBOT file'));
+    refreshFavoriteButtons();
+  }
+  function decorateCards(){$$('.theory-card,.leak-card,.intel').forEach(decorateCard)}
+  function refreshFavoriteButtons(){
+    $$('.theory-card,.leak-card,.intel').forEach(card=>{
+      if(card.dataset.appDecorated!=='1')return;
+      const i=cardInfo(card),b=card.querySelector('.favorite-action'),fav=isFavorite(i.type,i.key);
+      if(b){b.classList.toggle('active',fav);b.textContent=fav?'★ FAVORITED':'☆ FAVORITE'}
+    });
+  }
+  decorateCards();
+  const liveGrid=$('#liveIntelGrid');
+  if(liveGrid)new MutationObserver(()=>decorateCards()).observe(liveGrid,{childList:true});
+
+  // ---------- Watchlist drawer ----------
+  let watchDrawer=document.createElement('div');watchDrawer.className='app-drawer';watchDrawer.id='watchDrawer';
+  watchDrawer.innerHTML=`<div class="app-drawer-backdrop" data-close-watchlist></div>
+    <aside class="app-drawer-panel" role="dialog" aria-modal="true" aria-label="Watchlist">
+      <div class="drawer-head"><div><span>LOCAL TO THIS DEVICE</span><b>MY WATCHLIST</b></div><button type="button" data-close-watchlist>×</button></div>
+      <div id="watchItems" class="watch-items"></div>
+      <div class="drawer-footer"><a href="./settings.html">WATCHLIST SETTINGS →</a></div>
+    </aside>`;
+  document.body.appendChild(watchDrawer);
+  function renderWatchlist(){
+    const box=$('#watchItems'),items=Object.values(watchlist()).sort((a,b)=>b.added-a.added);
+    if(!box)return;
+    box.innerHTML=items.length?items.map(i=>`<div class="watch-row">
+      <div><span>${String(i.type).toUpperCase()}</span><b>${escapeHTML(i.title)}</b></div>
+      <a href="${i.url}">OPEN →</a>
+      <button type="button" data-remove-watch="${i.type}:${i.key}">×</button>
+    </div>`).join(''):`<div class="empty-state"><b>NO FAVORITES YET</b><p>Tap ☆ FAVORITE on any leak, theory or intel file.</p></div>`;
+    $$('[data-remove-watch]',box).forEach(btn=>btn.addEventListener('click',()=>{
+      const [type,...rest]=btn.dataset.removeWatch.split(':');const key=rest.join(':');putFavorite(type,key,'','',false);
+    }));
+  }
+  function escapeHTML(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+  function openWatchlist(){renderWatchlist();watchDrawer.classList.add('open');document.body.classList.add('modal-open')}
+  function closeWatchlist(){watchDrawer.classList.remove('open');document.body.classList.remove('modal-open')}
+  $$('[data-open-watchlist]').forEach(b=>b.addEventListener('click',openWatchlist));
+  watchDrawer.addEventListener('click',e=>{if(e.target.closest('[data-close-watchlist]'))closeWatchlist()});
+
+  // ---------- Help modal ----------
+  const help=document.createElement('div');help.className='app-modal';help.id='helpModal';
+  help.innerHTML=`<div class="modal-backdrop" data-close-help></div><div class="app-modal-card" role="dialog" aria-modal="true">
+    <button class="modal-x" type="button" data-close-help>×</button>
+    <div class="eyebrow">S.A.L.E.M. // QUICK HELP</div><h2>HOW DOOMBOT GRADES INTEL</h2>
+    <div class="tier-help">
+      <div><b>TIER S</b><span>Official Marvel / Disney material</span></div>
+      <div><b>TIER A</b><span>Major trades and established reporting</span></div>
+      <div><b>TIER B</b><span>Tracked scoopers with a record to judge</span></div>
+      <div><b>TIER C</b><span>Reddit, X and unconfirmed rumor chains</span></div>
+      <div><b>TIER D</b><span>Anonymous reposts / weakest sourcing</span></div>
+    </div>
+    <p class="modal-copy"><b>Confidence is not probability that Marvel definitely filmed it.</b> It is S.A.L.E.M.'s confidence in the source/evidence file. Theories remain theories even when they fit the evidence well.</p>
+    <button class="btn primary full-btn" type="button" data-close-help>GOT IT</button>
+  </div>`;
+  document.body.appendChild(help);
+  function openHelp(){help.classList.add('open');document.body.classList.add('modal-open')}
+  function closeHelp(){help.classList.remove('open');document.body.classList.remove('modal-open')}
+  $$('[data-open-help]').forEach(b=>b.addEventListener('click',openHelp));
+  help.addEventListener('click',e=>{if(e.target.closest('[data-close-help]'))closeHelp()});
+
+  // ---------- Install / Add to Home Screen ----------
+  let deferredPrompt=window.__doombotInstallPrompt||null;
+  window.addEventListener('doombot-install-ready',()=>{deferredPrompt=window.__doombotInstallPrompt||deferredPrompt});
+  const install=document.createElement('div');install.className='app-modal install-modal';install.id='installModal';
+  document.body.appendChild(install);
+
+  function installMarkup(){
+    let instructions='';
+    if(deferredPrompt){
+      instructions=`<div class="install-steps"><div><b>READY TO INSTALL</b><span>Your browser can install DOOMBOT as an app right now.</span></div></div>
+      <button class="btn primary full-btn" type="button" data-native-install>INSTALL DOOMBOT</button>`;
+    }else if(isIOS()){
+      instructions=`<div class="install-steps">
+        <div><b>1</b><span>Open DOOMBOT in <strong>Safari</strong>.</span></div>
+        <div><b>2</b><span>Tap Safari's <strong>Share</strong> button.</span></div>
+        <div><b>3</b><span>Choose <strong>Add to Home Screen</strong>, then tap Add.</span></div>
+      </div>`;
+    }else{
+      instructions=`<div class="install-steps">
+        <div><b>1</b><span>Open your browser menu.</span></div>
+        <div><b>2</b><span>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</span></div>
+        <div><b>3</b><span>Open DOOMBOT from your home screen for the full-screen app view.</span></div>
+      </div>`;
+    }
+    return `<div class="modal-backdrop" data-dismiss-install></div><div class="app-modal-card install-card" role="dialog" aria-modal="true">
+      <button class="modal-x" type="button" data-dismiss-install aria-label="Close">×</button>
+      <div class="install-mark">D</div>
+      <div class="eyebrow">DOOMBOT // APP MODE</div><h2>ADD DOOMBOT TO YOUR HOME SCREEN</h2>
+      <p class="modal-copy">Full-screen launch, faster access and an app icon beside everything else on your phone.</p>
+      ${instructions}
+      <button class="not-now-btn" type="button" data-dismiss-install>NOT NOW</button>
+      <small>You can reopen these instructions anytime from Settings.</small>
+    </div>`;
+  }
+  function closeInstall(dismiss=true){
+    install.classList.remove('open');document.body.classList.remove('modal-open');
+    if(dismiss)set('doombot-install-dismissed',String(Date.now()));
+  }
+  function openInstall(force=false){
+    if(isStandalone()){toast('DOOMBOT is already running in app mode');return}
+    if(!force){
+      const d=Number(get('doombot-install-dismissed','0')||0);
+      if(d&&Date.now()-d<30*86400000)return;
+    }
+    install.innerHTML=installMarkup();install.classList.add('open');document.body.classList.add('modal-open');
+    install.onclick=async e=>{
+      if(e.target.closest('[data-dismiss-install]')){closeInstall(true);return}
+      if(e.target.closest('[data-native-install]')&&deferredPrompt){
+        deferredPrompt.prompt();const choice=await deferredPrompt.userChoice.catch(()=>null);
+        if(choice?.outcome==='accepted'){set('doombot-installed','1');toast('DOOMBOT installed')}
+        deferredPrompt=null;window.__doombotInstallPrompt=null;closeInstall(false);
+      }
+    };
+  }
+  window.DOOMBOT_OPEN_INSTALL=()=>openInstall(true);
+  window.addEventListener('appinstalled',()=>{set('doombot-installed','1');closeInstall(false)});
+
+  // ---------- Non-blocking install nudge ----------
+  function showInstallNudge(){
+    if(isStandalone()||get('doombot-install-nudge-dismissed','0')==='1'||!document.body.classList.contains('home-page'))return;
+    const n=document.createElement('div');n.className='install-nudge';
+    n.innerHTML='<div><b>ADD DOOMBOT TO YOUR HOME SCREEN</b><span>Optional — opens full-screen like an app.</span></div><button type="button" data-nudge-install>VIEW</button><button class="nudge-x" type="button" data-nudge-close aria-label="Dismiss">×</button>';
+    document.body.appendChild(n);
+    requestAnimationFrame(()=>n.classList.add('show'));
+    n.querySelector('[data-nudge-install]').addEventListener('click',()=>{n.remove();openInstall(true)});
+    n.querySelector('[data-nudge-close]').addEventListener('click',()=>{set('doombot-install-nudge-dismissed','1');n.remove()});
+  }
+
+  // ---------- First-open boot ----------
+  function showWelcome(){
+    if(!document.body.classList.contains('home-page')||get('doombot-v13-onboarded','0')==='1')return false;
+    const welcome=document.createElement('div');welcome.className='welcome-screen';
+    welcome.innerHTML=`<div class="welcome-scan"></div><div class="welcome-inner">
+      <div class="welcome-mark">D</div><span>999SALEM // S.A.L.E.M. SYSTEM</span>
+      <h1>DOOMBOT</h1><p>AVENGERS: DOOMSDAY INTELLIGENCE MATRIX</p>
+      <div class="boot-lines"><i>INTEL ARCHIVE // ONLINE</i><i>THEORY ENGINE // ONLINE</i><i>VISUAL DATABASE // ONLINE</i></div>
+      <button type="button" class="btn primary enter-app">ENTER COMMAND CENTER</button>
+      <button type="button" class="skip-intro">SKIP INTRO</button>
+    </div>`;
+    document.body.appendChild(welcome);
+    const exit=()=>{set('doombot-v13-onboarded','1');welcome.classList.add('closing');setTimeout(()=>welcome.remove(),300)};
+    welcome.querySelector('.enter-app').addEventListener('click',exit);
+    welcome.querySelector('.skip-intro').addEventListener('click',exit);
+    setTimeout(()=>{if(document.body.contains(welcome))exit()},2400);
+    return true;
+  }
+  const welcomed=showWelcome();
+  if(document.body.classList.contains('home-page'))setTimeout(showInstallNudge,welcomed?3300:1400);
+
+  // ---------- New badges + "since last visit" ----------
+  const SEEN_KEY='doombot-seen-v13';
+  async function contentState(){
+    const fallback=jget('doombot-current-content-v13',{leaks:{ids:[],updated:''},intel:{ids:[],updated:''},theories:THEORY_REGISTRY});
+    const next={leaks:fallback.leaks,intel:fallback.intel,theories:THEORY_REGISTRY};
+    try{
+      const [lr,ir]=await Promise.all([
+        fetch('./leak-images.json?ts='+Date.now(),{cache:'no-store'}),
+        fetch('./live-intel.json?ts='+Date.now(),{cache:'no-store'})
+      ]);
+      if(lr.ok){const d=await lr.json();next.leaks={ids:(d.items||[]).map(x=>String(x.id)),updated:d.updated||''}}
+      if(ir.ok){const d=await ir.json();next.intel={ids:(d.items||[]).map(x=>String(x.id||x.title)),updated:d.updatedAt||''}}
+      set('doombot-current-content-v13',JSON.stringify(next));
+    }catch(e){}
+    return next;
+  }
+  function theoryMap(list){const m={};(list||[]).forEach(x=>m[x.id]=x.sig);return m}
+  function diffState(current,seen){
+    const newLeaks=(current.leaks.ids||[]).filter(id=>!(seen.leaks?.ids||[]).includes(id)).length;
+    let newIntel=(current.intel.ids||[]).filter(id=>!(seen.intel?.ids||[]).includes(id)).length;
+    if(!newIntel&&seen.intel?.updated&&current.intel.updated&&seen.intel.updated!==current.intel.updated)newIntel=1;
+    const a=theoryMap(current.theories),b=theoryMap(seen.theories);
+    const theoryChanges=Object.keys(a).filter(id=>!b[id]||b[id]!==a[id]).length;
+    return {leaks:newLeaks,intel:newIntel,theories:theoryChanges};
+  }
+  function badgeLinks(type,count){
+    const file=type==='leaks'?'leaks.html':type==='intel'?'intel.html':'theories.html';
+    $$(`a[href="./${file}"]`).forEach(a=>{
+      let badge=a.querySelector('.new-badge');
+      if(count>0){if(!badge){badge=document.createElement('em');badge.className='new-badge';a.appendChild(badge)}badge.textContent=count>9?'9+':count}
+      else badge?.remove();
+    });
+  }
+  function renderSince(d,current,first){
+    const card=$('#sinceLastVisit');if(!card)return;
+    const total=d.leaks+d.intel+d.theories;
+    const summary=$('#sinceSummary'),detail=$('#sinceDetail');
+    if(first){
+      summary.textContent='TRACKING ENABLED';
+      detail.textContent=`${current.leaks.ids.length||25} leak files · ${current.intel.ids.length||4} intel files · ${current.theories.length} theory files`;
+      card.dataset.state='quiet';
+    }else if(total===0){
+      summary.textContent='NO NEW FILES SINCE YOUR LAST VISIT';
+      detail.textContent='S.A.L.E.M. is watching the archive. You are caught up.';
+      card.dataset.state='quiet';
+    }else{
+      summary.textContent=`${total} ARCHIVE CHANGE${total===1?'':'S'} DETECTED`;
+      const bits=[];if(d.leaks)bits.push(`${d.leaks} new leak${d.leaks===1?'':'s'}`);if(d.intel)bits.push(`${d.intel} intel update${d.intel===1?'':'s'}`);if(d.theories)bits.push(`${d.theories} theory change${d.theories===1?'':'s'}`);
+      detail.textContent=bits.join(' · ');card.dataset.state='new';
+    }
+  }
+  contentState().then(current=>{
+    let seen=jget(SEEN_KEY,null),first=!seen;
+    if(!seen){seen=current;set(SEEN_KEY,JSON.stringify(seen))}
+    let d=diffState(current,seen);
+    badgeLinks('leaks',d.leaks);badgeLinks('intel',d.intel);badgeLinks('theories',d.theories);
+    renderSince(d,current,first);
+
+    const path=location.pathname.split('/').pop()||'index.html';
+    if(path==='leaks.html'){seen.leaks=current.leaks;d.leaks=0}
+    if(path==='intel.html'){seen.intel=current.intel;d.intel=0}
+    if(path==='theories.html'){seen.theories=current.theories;d.theories=0}
+    setTimeout(()=>{set(SEEN_KEY,JSON.stringify(seen));badgeLinks('leaks',d.leaks);badgeLinks('intel',d.intel);badgeLinks('theories',d.theories)},1800);
+    set('doombot-last-visit',String(Date.now()));
+  });
+
+  // ---------- Settings page wiring ----------
+  $$('[data-setting]').forEach(input=>input.addEventListener('change',()=>{
+    const s=settings();s[input.dataset.setting]=input.checked;saveSettings(s);toast('Setting saved');
+  }));
+  $('[data-settings-install]')?.addEventListener('click',()=>openInstall(true));
+  $('[data-reset-badges]')?.addEventListener('click',()=>{localStorage.removeItem(SEEN_KEY);localStorage.removeItem('doombot-current-content-v13');toast('New badges reset')});
+  $('[data-clear-favorites]')?.addEventListener('click',()=>{
+    const all=watchlist();Object.values(all).forEach(i=>localStorage.removeItem('doombot-fav-'+i.type+'-'+i.key));
+    set(WATCH_KEY,'{}');refreshFavoriteButtons();renderWatchlist();toast('Watchlist cleared');
+  });
+  $('[data-reset-welcome]')?.addEventListener('click',()=>{localStorage.removeItem('doombot-v13-onboarded');localStorage.removeItem('doombot-install-dismissed');toast('Welcome + install prompts reset')});
+
+  // ---------- Leak favorites filters ----------
+  // Existing V12 filter engine understands "favorites" in V13.
+  // Hide disputed files after other filters without destroying their state.
+  const leakGallery=$('#leakGallery');
+  if(leakGallery){
+    const refreshDisputed=()=>applySettings();
+    new MutationObserver(refreshDisputed).observe(leakGallery,{childList:true});
+  }
+
+  // ---------- Network status (banner removed in V20.2.2) ----------
+  function updateNetwork(){
+    const off=!navigator.onLine;
+    $$('.chip.live').forEach(c=>{c.textContent=off?'● OFFLINE ARCHIVE':'● ONLINE';c.classList.toggle('offline',off)});
+  }
+  addEventListener('online',updateNetwork);addEventListener('offline',updateNetwork);updateNetwork();
+
+  // ---------- App-like page transitions ----------
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href]');if(!a||a.target==='_blank'||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    const href=a.getAttribute('href')||'';
+    if(!href.startsWith('./')||href.includes('#')&&href.split('#')[0]==='')return;
+    if(settings().reduceMotion||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    if(/\.html(?:#.*)?$/.test(href)){
+      e.preventDefault();document.body.classList.add('page-exit');
+      setTimeout(()=>location.href=href,115);
+    }
+  });
+
+  // ---------- Keyboard escape for every overlay ----------
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Escape')return;
+    closeWatchlist();closeHelp();if(install.classList.contains('open'))closeInstall(true);
+  });
+
+  // ---------- Service worker ----------
+  if('serviceWorker' in navigator){
+    addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+  }
+})();
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script id="doombot-v14-cloud">
+(function(){
+  const URL="https://fgpoiqsxxpwfpeezwdjn.supabase.co";
+  const KEY="sb_publishable_KhYmge-8aJ6tp0J0LAwNUA_lH2Gr-Zk";
+  const TABLE='doombot_user_state';
+  const LOCAL_STAMP='doombot-cloud-local-updated-v14';
+  const managedExact=new Set([
+    'doombot-watchlist-v1','doombot-settings-v1','salem-doomsday-intel-queue-v1',
+    'doombot-seen-v13','doombot-last-visit','doombot-custom-theories-v1'
+  ]);
+  const managedPrefixes=['salem-lock-','salem-note-','doombot-fav-'];
+  let client=null,user=null,ready=false,syncTimer=null,syncing=false;
+
+  function isManaged(k){return managedExact.has(k)||managedPrefixes.some(p=>String(k).startsWith(p))}
+  function stamp(){try{return Number(localStorage.getItem(LOCAL_STAMP)||0)}catch(e){return 0}}
+  function setStamp(v){try{localStorage.setItem(LOCAL_STAMP,String(v))}catch(e){}}
+  function gather(){
+    const values={};
+    try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&isManaged(k))values[k]=localStorage.getItem(k)}}catch(e){}
+    return values;
+  }
+  function localKeys(){
+    const out=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&isManaged(k))out.push(k)}}catch(e){}
+    return out;
+  }
+  function status(state,msg){
+    document.querySelectorAll('[data-cloud-status]').forEach(el=>{
+      el.dataset.state=state;
+      const t=el.querySelector('[data-cloud-status-title]'),d=el.querySelector('[data-cloud-status-detail]');
+      if(t)t.textContent=state==='online'?'CLOUD SAVE ONLINE':state==='syncing'?'SYNCING CLOUD SAVE…':state==='offline'?'OFFLINE — LOCAL SAVE ACTIVE':state==='error'?'CLOUD SAVE ERROR':'CONNECTING CLOUD SAVE…';
+      if(d)d.textContent=msg||'';
+    });
+    document.querySelectorAll('[data-cloud-user]').forEach(el=>{if(user)el.textContent=(user.is_anonymous?'GUEST SAVE ID // ':'ACCOUNT SAVE ID // ')+user.id});
+    window.dispatchEvent(new CustomEvent('doombot-cloud-status',{detail:{state,message:msg,userId:user?.id||null,isAnonymous:user?.is_anonymous??true}}));
+  }
+  function applyRemote(values){
+    let changed=false;const remote=values||{};
+    try{
+      localKeys().forEach(k=>{if(!(k in remote)){localStorage.removeItem(k);changed=true}});
+      Object.entries(remote).forEach(([k,v])=>{
+        if(!isManaged(k))return;
+        const next=String(v??'');
+        if(localStorage.getItem(k)!==next){localStorage.setItem(k,next);changed=true}
+      });
+    }catch(e){}
+    return changed;
+  }
+  async function saveCloud(){
+    if(!ready||!client||!user||syncing||!navigator.onLine)return false;
+    syncing=true;status('syncing','Uploading notes, locks, favorites and personal theories…');
+    try{
+      const now=Date.now(),payload={version:14,client_updated_at:now,values:gather()};
+      const {error}=await client.from(TABLE).upsert({
+        user_id:user.id,data:payload,updated_at:new Date(now).toISOString()
+      },{onConflict:'user_id'});
+      if(error)throw error;
+      setStamp(now);status('online','Your personal DOOMBOT state is backed up.');
+      return true;
+    }catch(err){
+      console.warn('DOOMBOT cloud save failed',err);
+      status(navigator.onLine?'error':'offline',navigator.onLine?'Local save is safe; cloud sync will retry.':'No connection. Changes are still saved locally.');
+      return false;
+    }finally{syncing=false}
+  }
+  function touch(key){
+    if(!isManaged(String(key||'')))return;
+    setStamp(Date.now());clearTimeout(syncTimer);syncTimer=setTimeout(saveCloud,700);
+  }
+  window.DOOMBOT_CLOUD_TOUCH=touch;
+  window.DOOMBOT_CLOUD_SYNC=saveCloud;
+
+  async function restoreOrSeed(){
+    const {data,error}=await client.from(TABLE).select('data,updated_at').eq('user_id',user.id).maybeSingle();
+    if(error)throw error;
+    const ls=stamp();
+    const authMode=(()=>{try{return localStorage.getItem('doombot-auth-mode-v18')||''}catch(e){return ''}})();
+    if(!data){try{localStorage.removeItem('doombot-auth-mode-v18')}catch(e){};await saveCloud();return}
+    const payload=data.data||{},rs=Number(payload.client_updated_at||0);
+    if(authMode==='existing'&&!user?.is_anonymous){
+      const changed=applyRemote(payload.values||{});setStamp(rs);
+      try{localStorage.removeItem('doombot-auth-mode-v18')}catch(e){}
+      status('online','Signed-in account restored from cloud.');
+      if(changed)setTimeout(()=>location.reload(),180);
+      return;
+    }
+    if(!user?.is_anonymous){try{localStorage.removeItem('doombot-auth-mode-v18')}catch(e){}}
+    if(ls>rs){await saveCloud();return}
+    if(rs>ls){
+      const changed=applyRemote(payload.values||{});setStamp(rs);status('online','Cloud save restored.');
+      if(changed){
+        const flag='doombot-cloud-reload-'+rs;
+        let seen=false;try{seen=sessionStorage.getItem(flag)==='1';sessionStorage.setItem(flag,'1')}catch(e){}
+        if(!seen)setTimeout(()=>location.reload(),180);
+      }
+      return;
+    }
+    status('online','DOOMBOT is synced.');
+  }
+  async function init(){
+    if(!navigator.onLine){status('offline','No connection. Local save is active.');return}
+    status('connecting','Connecting to your private DOOMBOT save…');
+    try{
+      if(!window.supabase?.createClient)throw new Error('Supabase library unavailable');
+      client=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});window.DOOMBOT_SUPABASE=client;
+      const {data:sd,error:se}=await client.auth.getSession();if(se)throw se;
+      let session=sd?.session||null;
+      if(!session){
+        const {data,error}=await client.auth.signInAnonymously();if(error)throw error;session=data?.session||null;
+      }
+      user=session?.user||null;if(!user)throw new Error('No DOOMBOT user session');window.DOOMBOT_AUTH_USER=user;
+      ready=true;await restoreOrSeed();window.dispatchEvent(new CustomEvent('doombot-auth-ready',{detail:{user,isAnonymous:user.is_anonymous}}));
+    }catch(err){
+      console.warn('DOOMBOT cloud init failed',err);
+      status('error','Local save still works. If this stays red, verify the Supabase SQL/RLS setup.');
+    }
+  }
+  addEventListener('online',()=>{if(ready)saveCloud();else init()});
+  addEventListener('offline',()=>status('offline','No connection. Local save is active.'));
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')saveCloud()});
+  init();
+})();
+</script>
+
+<script src="./v18-common.js?v=20"></script>
+
+
+
+
+
+<script id="doombot-v201-viewport-tabs-runtime">
+(function(){
+  var HTML='<a href="./index.html"><span class="db-tab-icon">⌂</span><span class="db-tab-label">HOME</span></a><a href="./leaks.html"><span class="db-tab-icon">▣</span><span class="db-tab-label">LEAKS</span></a><a href="./warroom.html"><span class="db-tab-icon">◈</span><span class="db-tab-label">WAR ROOM</span></a><a href="./theories.html"><span class="db-tab-icon">◇</span><span class="db-tab-label">THEORIES</span></a><a href="./map.html" class="db-tab-active"><span class="db-tab-icon">⬡</span><span class="db-tab-label">MAP</span></a>';
+  function mountViewportTabs(){
+    document.querySelectorAll('.bottom-nav').forEach(function(n){n.remove();});
+    var old=document.getElementById('doombot-viewport-tabs');if(old)old.remove();
+    var nav=document.createElement('nav');
+    nav.id='doombot-viewport-tabs';
+    nav.setAttribute('aria-label','DOOMBOT primary navigation');
+    nav.innerHTML=HTML;
+    document.documentElement.appendChild(nav);
+    document.body.style.setProperty('transform','none','important');
+    document.body.style.setProperty('animation','none','important');
+    document.body.style.setProperty('padding-bottom','calc(82px + env(safe-area-inset-bottom))','important');
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mountViewportTabs,{once:true});
+  else mountViewportTabs();
+  window.addEventListener('pageshow',mountViewportTabs);
+  window.addEventListener('orientationchange',function(){setTimeout(mountViewportTabs,80)});
+})();
+</script>
+
+
+
+<script id="doombot-v201-map-controls">
+(function(){
+  var canvas=document.getElementById('mapCanvas');
+  var svg=document.getElementById('theoryMapSvg');
+  if(!canvas||!svg)return;
+  var zoom=1;
+  function apply(){
+    if(zoom===1){
+      svg.style.removeProperty('width');
+    }else{
+      svg.style.width=(1080*zoom)+'px';
+    }
+  }
+  document.querySelectorAll('[data-map-zoom]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      zoom=Math.max(.85,Math.min(1.6,zoom+(Number(btn.dataset.mapZoom)*.15)));
+      apply();
+    });
+  });
+  document.querySelector('[data-map-fit]')?.addEventListener('click',function(){
+    zoom=1;apply();canvas.scrollTo({left:0,behavior:'smooth'});
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -5,7 +5,7 @@ body{margin:0;background:var(--bg);color:var(--white);font-family:"DM Sans",sans
 a{color:inherit;text-decoration:none}
 .hero{min-height:900px;min-height:100svh;position:relative;isolation:isolate;overflow:hidden;background:#030604}
 .hero-image,.hero-shade{position:absolute;inset:0;z-index:-2}
-.hero-image{background-image:url("assets/doom-hero.jpeg");background-size:cover;background-position:center 48%;transform:scale(1.015)}
+.hero-image{background-image:url("doom-hero.jpeg");background-size:cover;background-position:center 48%;transform:scale(1.015)}
 .hero-shade{z-index:-1;background:linear-gradient(90deg,rgba(2,7,4,.92) 0%,rgba(2,7,4,.73) 37%,rgba(2,7,4,.18) 76%,rgba(2,7,4,.25) 100%),linear-gradient(0deg,#050907 0%,transparent 30%,rgba(0,0,0,.2) 100%)}
 .topbar{height:88px;padding:0 clamp(22px,6vw,88px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(220,245,215,.12)}
 .brand{display:flex;align-items:center;gap:12px;letter-spacing:.13em}
